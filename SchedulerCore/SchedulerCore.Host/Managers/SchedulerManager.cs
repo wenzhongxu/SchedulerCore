@@ -1,5 +1,6 @@
 ﻿using Quartz;
 using Quartz.Impl;
+using SchedulerCore.Host.Jobs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,31 +13,43 @@ namespace SchedulerCore.Host.Managers
     /// </summary>
     public class SchedulerManager
     {
-        private IScheduler _scheduler;
-
         /// <summary>
         /// 开启调度器
         /// </summary>
         /// <returns></returns>
-        public async Task<bool> StartScheduleAsync()
+        public async Task StartScheduleAsync()
         {
-            await InitSchedulerAsync();
+            // grab instance
+            StdSchedulerFactory factory = new();
+            IScheduler scheduler = await factory.GetScheduler();
 
-            if (_scheduler.InStandbyMode)
-            {
-                await _scheduler.Start();
-                Console.WriteLine("任务调度已启动。");
-            }
+            // start it
+            await scheduler.Start();
 
-            return _scheduler.InStandbyMode;
-        }
+            // define the job and tie it to HelloJob
+            IJobDetail job = JobBuilder.Create<HelloJob>()
+                .WithIdentity("job1", "group1")
+                .Build();
 
-        private async Task InitSchedulerAsync()
-        {
-            if (_scheduler == null)
-            {
-                // 初始化任务调度器
-            }
+            // trigger the job to run now
+            ITrigger trigger = TriggerBuilder.Create()
+                .WithIdentity("trigger", "group1")
+                .StartNow()
+                .WithSimpleSchedule(x => x
+                .WithIntervalInSeconds(10)
+                .RepeatForever())
+                .Build();
+
+            // schedule the job using this trigger
+            await scheduler.ScheduleJob(job, trigger);
+
+            await Task.Delay(TimeSpan.FromSeconds(60));
+
+            Console.Write("shutdown...");
+            await scheduler.Shutdown();
+
+            Console.WriteLine("Press any key to close the application");
+            Console.ReadKey();
         }
 
     }
