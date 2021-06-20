@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace SchedulerCore.Host.Managers
 {
     /// <summary>
-    /// 任务调度中心 单例模式
+    /// 任务调度中心 单例模式 采用 StdSchedulerFactory
     /// </summary>
     public class SchedulerManager
     {
