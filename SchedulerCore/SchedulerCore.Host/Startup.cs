@@ -30,6 +30,7 @@ namespace SchedulerCore.Host
         {
             services.AddHostedService<HostedService>(); // 注册到hosted
             services.AddSingleton<SchedulerManager>(); // 单例模式
+            services.AddSingleton<SchedulerCenter>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

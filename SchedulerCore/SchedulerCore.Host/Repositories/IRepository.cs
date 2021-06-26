@@ -7,6 +7,5 @@ namespace SchedulerCore.Host.Repositories
 {
     public interface IRepository
     {
-        Task<int> InitTable();
     }
 }

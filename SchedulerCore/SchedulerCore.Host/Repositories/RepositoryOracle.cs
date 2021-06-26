@@ -15,20 +15,6 @@ namespace SchedulerCore.Host.Repositories
             DbProvider = dbProvider ?? throw new ArgumentNullException(nameof(dbProvider));
         }
 
-        public async Task<int> InitTable()
-        {
-            try
-            {
-                using (var connection = new OracleConnection(DbProvider.ConnectionString))
-                {
-                    return await connection.ExecuteAsync("sql");
-                }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
     }
 }
 
