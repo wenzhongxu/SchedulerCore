@@ -9,6 +9,7 @@ using Quartz.Util;
 using SchedulerCore.Host.Common;
 using SchedulerCore.Host.Common.Enum;
 using SchedulerCore.Host.Entities;
+using SchedulerCore.Host.Models;
 using SchedulerCore.Host.Repositories;
 using System;
 using System.Collections.Generic;
@@ -171,6 +172,15 @@ namespace SchedulerCore.Host.Managers
             }
 
             return jobInfoList;
+        }
+
+        public async Task<string> AddScheduleJobAsync(ScheduleAddDto scheduleAddDto)
+        {
+            var jobKey = new JobKey(scheduleAddDto.JobName, scheduleAddDto.JobGroup);
+            if (await scheduler.CheckExists(jobKey))
+            {
+                return "任务已存在";
+            }
         }
 
 
