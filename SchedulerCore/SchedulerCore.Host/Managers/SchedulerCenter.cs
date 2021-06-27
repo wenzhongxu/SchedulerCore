@@ -2,9 +2,13 @@
 using Quartz.Impl;
 using Quartz.Impl.AdoJobStore;
 using Quartz.Impl.AdoJobStore.Common;
+using Quartz.Impl.Matchers;
+using Quartz.Impl.Triggers;
 using Quartz.Simpl;
 using Quartz.Util;
 using SchedulerCore.Host.Common;
+using SchedulerCore.Host.Common.Enum;
+using SchedulerCore.Host.Entities;
 using SchedulerCore.Host.Repositories;
 using System;
 using System.Collections.Generic;
@@ -91,6 +95,86 @@ namespace SchedulerCore.Host.Managers
             }
             return scheduler.InStandbyMode;
         }
+
+        #region for webapi
+        public async Task<List<JobInfoEntity>> GetAllJobAsync()
+        {
+            List<JobKey> jobKeyList = new();
+            List<JobInfoEntity> jobInfoList = new();
+
+            var groupNames = await scheduler.GetJobGroupNames();
+            foreach (var groupName in groupNames.OrderBy(t => t))
+            {
+                jobKeyList.AddRange(await scheduler.GetJobKeys(GroupMatcher<JobKey>.GroupEquals(groupName)));
+                jobInfoList.Add(new JobInfoEntity() { GroupName = groupName });
+            }
+
+            foreach (var jobKey in jobKeyList.OrderBy(t => t.Name))
+            {
+                var jobDetail = await scheduler.GetJobDetail(jobKey);
+                var triggersList = await scheduler.GetTriggersOfJob(jobKey);
+                var triggers = triggersList.AsEnumerable().FirstOrDefault();
+
+                string interval;
+                if (triggers is SimpleTriggerImpl)
+                {
+                    interval = (triggers as SimpleTriggerImpl)?.RepeatInterval.ToString();
+                }
+                else
+                {
+                    interval = (triggers as CronTriggerImpl)?.CronExpressionString;
+                }
+
+                foreach (var jobInfo in jobInfoList)
+                {
+                    if (jobInfo.GroupName == jobKey.Group)
+                    {
+                        var jobType = (JobTypeEnum)jobDetail.JobDataMap.GetLong(Constant.JobTypeEnum);
+                        jobType = jobType == JobTypeEnum.None ? JobTypeEnum.Url : jobType;
+
+                        var triggerAddress = string.Empty;
+                        if (jobType == JobTypeEnum.Url)
+                        {
+                            triggerAddress = jobDetail.JobDataMap.GetString(Constant.RequestUrl);
+                        }
+                        else if (jobType == JobTypeEnum.Email)
+                        {
+                            triggerAddress = jobDetail.JobDataMap.GetString(Constant.MailTo);
+                        }
+                        else if (jobType == JobTypeEnum.Mqtt)
+                        {
+                            triggerAddress = jobDetail.JobDataMap.GetString(Constant.Topic);
+                        }
+                        else if (jobType == JobTypeEnum.RabbitMQ)
+                        {
+                            triggerAddress = jobDetail.JobDataMap.GetString(Constant.RabbitQueue);
+                        }
+
+                        jobInfo.JobInfoList.Add(new JobInfo()
+                        {
+                            Name = jobKey.Name,
+                            LastErrMsg = jobDetail.JobDataMap.GetString(Constant.Exception),
+                            TriggerAddress = triggerAddress,
+                            TriggerState = await scheduler.GetTriggerState(triggers.Key),
+                            PreviousFireTime = triggers.GetPreviousFireTimeUtc()?.LocalDateTime,
+                            NextFireTime = triggers.GetNextFireTimeUtc()?.LocalDateTime,
+                            BeginTime = triggers.StartTimeUtc.LocalDateTime,
+                            Interval = interval,
+                            EndTime = triggers.EndTimeUtc?.LocalDateTime,
+                            Description = triggers.Description,
+                            RequestType = triggers.JobDataMap.GetString(Constant.RequestType),
+                            RunNumber = triggers.JobDataMap.GetLong(Constant.RunNumber),
+                            JobType = (long)jobType
+                        });
+                    }
+                }
+            }
+
+            return jobInfoList;
+        }
+
+
+        #endregion
 
     }
 }
