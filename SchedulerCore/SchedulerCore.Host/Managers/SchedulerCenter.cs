@@ -9,6 +9,7 @@ using Quartz.Util;
 using SchedulerCore.Host.Common;
 using SchedulerCore.Host.Common.Enum;
 using SchedulerCore.Host.Entities;
+using SchedulerCore.Host.Jobs;
 using SchedulerCore.Host.Models;
 using SchedulerCore.Host.Repositories;
 using System;
@@ -38,22 +39,14 @@ namespace SchedulerCore.Host.Managers
         /// </summary>
         private void InitDriverDelegateType()
         {
-            var dbProdierName = AppConfig.DbProviderName.ToUpper();
-            switch (dbProdierName)
+            var dbProdierName = AppConfig.DbProviderName;
+            delegateType = dbProdierName switch
             {
-                case "ORACLE":
-                    delegateType = typeof(OracleDelegate).AssemblyQualifiedName;
-                    break;
-                case "MYSQL":
-                    delegateType = typeof(MySQLDelegate).AssemblyQualifiedName;
-                    break;
-                case "SQLSERVER":
-                    delegateType = typeof(SqlServerDelegate).AssemblyQualifiedName;
-                    break;
-                default:
-                    delegateType = typeof(OracleDelegate).AssemblyQualifiedName;
-                    break;
-            }
+                "OracleODPManaged" => typeof(OracleDelegate).AssemblyQualifiedName,
+                "MySql" => typeof(MySQLDelegate).AssemblyQualifiedName,
+                "SqlServer" => typeof(SqlServerDelegate).AssemblyQualifiedName,
+                _ => typeof(OracleDelegate).AssemblyQualifiedName,
+            };
         }
 
         /// <summary>
@@ -89,6 +82,8 @@ namespace SchedulerCore.Host.Managers
         /// <returns></returns>
         public async Task<bool> StartScheduleAsync()
         {
+            await InitSchedulerAsync();
+
             if (scheduler.InStandbyMode)
             {
                 await scheduler.Start();
@@ -174,12 +169,68 @@ namespace SchedulerCore.Host.Managers
             return jobInfoList;
         }
 
-        public async Task<string> AddScheduleJobAsync(ScheduleAddDto scheduleAddDto)
+        public async Task AddScheduleJobAsync(ScheduleAddDto entity, long? runNumber = null)
         {
-            var jobKey = new JobKey(scheduleAddDto.JobName, scheduleAddDto.JobGroup);
-            if (await scheduler.CheckExists(jobKey))
+            //http请求配置
+            var httpDir = new Dictionary<string, string>()
             {
-                return "任务已存在";
+                { Constant.EndAt, entity.EndTime.ToString() },
+                { Constant.JobTypeEnum, ((int)entity.JobType).ToString()},
+                { Constant.MailMessage, ((int)entity.MailMessage).ToString()}
+            };
+
+            if (runNumber.HasValue)
+            {
+                httpDir.Add(Constant.RunNumber, runNumber.ToString());
+            }
+
+            IJobConfigurator jobConfigurator = null;
+            if (entity.JobType == JobTypeEnum.Url)
+            {
+                jobConfigurator = JobBuilder.Create<HttpJob>();
+            }
+
+            IJobDetail jobDetail = jobConfigurator
+                .SetJobData(new JobDataMap(httpDir))
+                .WithDescription(entity.Description)
+                .WithIdentity(entity.JobName, entity.JobGroup)
+                .Build();
+
+            ITrigger trigger = CreateSimpleTrigger(entity);
+
+            await scheduler.ScheduleJob(jobDetail, trigger);
+
+        }
+
+        private ITrigger CreateSimpleTrigger(ScheduleAddDto entity)
+        {
+            if (entity.RunTimes.HasValue && entity.RunTimes > 0)
+            {
+                return TriggerBuilder.Create()
+                    .WithIdentity(entity.JobName, entity.JobGroup)
+                    .StartAt(entity.BeginTime)
+                    .WithSimpleSchedule(p =>
+                    {
+                        p.WithIntervalInSeconds(entity.IntervalSecond.Value)
+                        .WithRepeatCount(entity.RunTimes.Value)
+                        .WithMisfireHandlingInstructionFireNow();
+                    })
+                    .ForJob(entity.JobName, entity.JobGroup)
+                    .Build();
+            }
+            else
+            {
+                return TriggerBuilder.Create()
+                    .WithIdentity(entity.JobName, entity.JobGroup)
+                    .StartAt(entity.BeginTime)
+                    .WithSimpleSchedule(p =>
+                    {
+                        p.WithIntervalInSeconds(entity.IntervalSecond.Value)
+                        .RepeatForever()
+                        .WithMisfireHandlingInstructionFireNow();
+                    })
+                    .ForJob(entity.JobName, entity.JobGroup)
+                    .Build();
             }
         }
 

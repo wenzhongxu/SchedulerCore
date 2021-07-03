@@ -10,16 +10,17 @@ namespace SchedulerCore.Host.Services
 {
     public class HostedService : IHostedService
     {
-        private readonly SchedulerManager _schedulerManager;
+        //private readonly SchedulerManager _schedulerManager;
+        private readonly SchedulerCenter _schedulerCenter;
 
-        public HostedService(SchedulerManager schedulerManager)
+        public HostedService(SchedulerCenter schedulerCenter)
         {
-            _schedulerManager = schedulerManager ?? throw new ArgumentNullException(nameof(schedulerManager));
+            _schedulerCenter = schedulerCenter ?? throw new ArgumentNullException(nameof(schedulerCenter));
         }
 
         public async Task StartAsync(CancellationToken cancellationToken)
         {
-            await _schedulerManager.StartScheduleAsync();
+            await _schedulerCenter.StartScheduleAsync();
         }
 
         public async Task StopAsync(CancellationToken cancellationToken)

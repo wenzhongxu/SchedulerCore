@@ -42,6 +42,8 @@ namespace SchedulerCore.Host.Common
         /// </summary>
         public const string Exception = "Exception";
 
+        public const string EndAt = "EndAt";
+
         /// <summary>
         /// 执行次数
         /// </summary>
