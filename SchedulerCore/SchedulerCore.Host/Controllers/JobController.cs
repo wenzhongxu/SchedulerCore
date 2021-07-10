@@ -34,7 +34,7 @@ namespace SchedulerCore.Host.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public async Task<ActionResult<List<JobInfoEntity>>> GetAllJob()
+        public async Task<ActionResult<List<SchedulerDto>>> GetAllJob()
         {
             var jobs = await _schedulerCenter.GetAllJobAsync();
             return Ok(jobs);

@@ -93,10 +93,11 @@ namespace SchedulerCore.Host.Managers
         }
 
         #region for webapi
-        public async Task<List<JobInfoEntity>> GetAllJobAsync()
+        public async Task<List<SchedulerDto>> GetAllJobAsync()
         {
             List<JobKey> jobKeyList = new();
             List<JobInfoEntity> jobInfoList = new();
+            List<SchedulerDto> jobInfoDtos = new();
 
             var groupNames = await scheduler.GetJobGroupNames();
             foreach (var groupName in groupNames.OrderBy(t => t))
@@ -162,17 +163,35 @@ namespace SchedulerCore.Host.Managers
                             RunNumber = triggers.JobDataMap.GetLong(Constant.RunNumber),
                             JobType = (long)jobType
                         });
+
+                        jobInfoDtos.Add(new SchedulerDto()
+                        {
+                            GroupName = jobInfo.GroupName,
+                            Name = jobKey.Name,
+                            LastErrMsg = jobDetail.JobDataMap.GetString(Constant.Exception),
+                            TriggerAddress = triggerAddress,
+                            TriggerState = await scheduler.GetTriggerState(triggers.Key),
+                            PreviousFireTime = triggers.GetPreviousFireTimeUtc()?.LocalDateTime,
+                            NextFireTime = triggers.GetNextFireTimeUtc()?.LocalDateTime,
+                            BeginTime = triggers.StartTimeUtc.LocalDateTime,
+                            Interval = interval,
+                            EndTime = triggers.EndTimeUtc?.LocalDateTime,
+                            Description = triggers.Description,
+                            RequestType = triggers.JobDataMap.GetString(Constant.RequestType),
+                            RunNumber = triggers.JobDataMap.GetLong(Constant.RunNumber),
+                            JobType = (long)jobType
+                        });
                     }
                 }
             }
 
-            return jobInfoList;
+            return jobInfoDtos;
         }
 
         public async Task AddScheduleJobAsync(ScheduleAddDto entity, long? runNumber = null)
         {
-            //http请求配置
-            var httpDir = new Dictionary<string, string>()
+            //请求配置
+            var dataMapDir = new Dictionary<string, string>()
             {
                 { Constant.EndAt, entity.EndTime.ToString() },
                 { Constant.JobTypeEnum, ((int)entity.JobType).ToString()},
@@ -181,17 +200,21 @@ namespace SchedulerCore.Host.Managers
 
             if (runNumber.HasValue)
             {
-                httpDir.Add(Constant.RunNumber, runNumber.ToString());
+                dataMapDir.Add(Constant.RunNumber, runNumber.ToString());
             }
 
             IJobConfigurator jobConfigurator = null;
             if (entity.JobType == JobTypeEnum.Url)
             {
                 jobConfigurator = JobBuilder.Create<HttpJob>();
+                dataMapDir.Add(Constant.RequestUrl, entity.RequestUrl);
+                dataMapDir.Add(Constant.RequestType, ((int)entity.RequestType).ToString());
+                dataMapDir.Add(Constant.Headers, entity.Headers);
+                dataMapDir.Add(Constant.RequestParameters, entity.RequestParameters);
             }
 
             IJobDetail jobDetail = jobConfigurator
-                .SetJobData(new JobDataMap(httpDir))
+                .SetJobData(new JobDataMap(dataMapDir))
                 .WithDescription(entity.Description)
                 .WithIdentity(entity.JobName, entity.JobGroup)
                 .Build();
