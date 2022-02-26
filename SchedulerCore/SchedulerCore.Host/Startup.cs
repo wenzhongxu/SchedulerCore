@@ -7,9 +7,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using SchedulerCore.Host.Filters;
 using SchedulerCore.Host.Managers;
 using SchedulerCore.Host.Services;
-using System;
+using Serilog;
+using Serilog.Events;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -28,6 +30,8 @@ namespace SchedulerCore.Host
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            LogConfig();
+
             #region 跨域     
             services.AddCors(options =>
             {
@@ -46,6 +50,11 @@ namespace SchedulerCore.Host
             });
 
             #endregion
+
+            services.AddControllersWithViews(option =>
+           {
+               option.Filters.Add<AuthorizationFilter>();
+           }).AddNewtonsoftJson();
 
             services.AddHostedService<HostedService>(); // 注册到hosted
             //services.AddSingleton<SchedulerManager>(); // 单例模式
@@ -87,6 +96,63 @@ namespace SchedulerCore.Host
             {
                 endpoints.MapControllers();
             });
+        }
+
+        /// <summary>
+        /// 日志配置
+        /// </summary>      
+        private void LogConfig()
+        {
+            //nuget导入
+            //Serilog.Extensions.Logging 
+            //Serilog.Sinks.File
+            //Serilog.Sinks.Async
+            var fileSize = 1024 * 1024 * 10;//10M
+            var fileCount = 2;
+            Log.Logger = new LoggerConfiguration()
+                                 .Enrich.FromLogContext()
+                                 .MinimumLevel.Debug()
+                                 .MinimumLevel.Override("System", LogEventLevel.Information)
+                                 .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
+                                 .WriteTo.Logger(lg => lg.Filter.ByIncludingOnly(p => p.Level == LogEventLevel.Debug).WriteTo.Async(
+                                     a =>
+                                     {
+                                         a.File("Logs/log-{Date}-debug.txt", restrictedToMinimumLevel: LogEventLevel.Debug, outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj}{NewLine}{Exception}");
+                                     }
+                                 ))
+                                 .WriteTo.Logger(lg => lg.Filter.ByIncludingOnly(p => p.Level == LogEventLevel.Information).WriteTo.Async(
+                                     a =>
+                                     {
+                                         a.File("Logs", restrictedToMinimumLevel: LogEventLevel.Information);
+                                     }
+                                 ))
+                                 .WriteTo.Logger(lg => lg.Filter.ByIncludingOnly(p => p.Level == LogEventLevel.Warning).WriteTo.Async(
+                                     a =>
+                                     {
+                                         a.File("Logs", restrictedToMinimumLevel: LogEventLevel.Warning);
+                                     }
+                                 ))
+                                 .WriteTo.Logger(lg => lg.Filter.ByIncludingOnly(p => p.Level == LogEventLevel.Error).WriteTo.Async(
+                                     a =>
+                                     {
+                                         a.File("Logs", restrictedToMinimumLevel: LogEventLevel.Error);
+                                     }
+                                 ))
+                                 .WriteTo.Logger(lg => lg.Filter.ByIncludingOnly(p => p.Level == LogEventLevel.Fatal).WriteTo.Async(
+                                     a =>
+                                     {
+                                         a.File("Logs", restrictedToMinimumLevel: LogEventLevel.Fatal);
+
+                                     }
+                                 ))
+                                 //所有情况
+                                 .WriteTo.Logger(lg => lg.Filter.ByIncludingOnly(p => true)).WriteTo.Async(
+                                     a =>
+                                     {
+                                         a.File("Logs", restrictedToMinimumLevel: LogEventLevel.Verbose);
+                                     }
+                                 )
+                                .CreateLogger();
         }
     }
 }

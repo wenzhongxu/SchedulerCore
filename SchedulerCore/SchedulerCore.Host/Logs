@@ -1,0 +1,226 @@
+2022-01-21 14:39:22.485 +08:00 [DBG] TaskSchedulingThreadPool configured with max concurrency of 10 and TaskScheduler ThreadPoolTaskScheduler.
+2022-01-21 14:39:22.525 +08:00 [DBG] Adding TriggerPersistenceDelegate of type: Quartz.Impl.AdoJobStore.SimpleTriggerPersistenceDelegate
+2022-01-21 14:39:22.525 +08:00 [DBG] Adding TriggerPersistenceDelegate of type: Quartz.Impl.AdoJobStore.CronTriggerPersistenceDelegate
+2022-01-21 14:39:22.526 +08:00 [DBG] Adding TriggerPersistenceDelegate of type: Quartz.Impl.AdoJobStore.CalendarIntervalTriggerPersistenceDelegate
+2022-01-21 14:39:22.526 +08:00 [DBG] Adding TriggerPersistenceDelegate of type: Quartz.Impl.AdoJobStore.DailyTimeIntervalTriggerPersistenceDelegate
+2022-01-21 14:39:22.538 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is desired by: 13ff2239-638e-44e8-96c5-233ae430f393
+2022-01-21 14:39:22.539 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is being obtained: 13ff2239-638e-44e8-96c5-233ae430f393
+2022-01-21 14:39:22.539 +08:00 [DBG] Lock 'TRIGGER_ACCESS' given to: 13ff2239-638e-44e8-96c5-233ae430f393
+2022-01-21 14:39:23.058 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_TRIGGERS SET TRIGGER_STATE = @newState WHERE SCHED_NAME = @schedulerName AND (TRIGGER_STATE = @oldState1 OR TRIGGER_STATE = @oldState2)
+2022-01-21 14:39:23.244 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_TRIGGERS SET TRIGGER_STATE = @newState WHERE SCHED_NAME = @schedulerName AND (TRIGGER_STATE = @oldState1 OR TRIGGER_STATE = @oldState2)
+2022-01-21 14:39:23.254 +08:00 [DBG] Prepared SQL: SELECT TRIGGER_NAME, TRIGGER_GROUP FROM QRTZ_TRIGGERS WHERE SCHED_NAME = @schedulerName AND MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME < @nextFireTime AND TRIGGER_STATE = @state1 ORDER BY NEXT_FIRE_TIME ASC, PRIORITY DESC
+2022-01-21 14:39:23.337 +08:00 [DBG] Prepared SQL: SELECT 
+                JOB_NAME,
+                JOB_GROUP,
+                DESCRIPTION,
+                NEXT_FIRE_TIME,
+                PREV_FIRE_TIME,
+                TRIGGER_TYPE,
+                START_TIME,
+                END_TIME,
+                CALENDAR_NAME,
+                MISFIRE_INSTR,
+                PRIORITY,
+                JOB_DATA,
+                CRON_EXPRESSION,
+                TIME_ZONE_ID,
+                REPEAT_COUNT,
+                REPEAT_INTERVAL,
+                TIMES_TRIGGERED 
+            FROM 
+                QRTZ_TRIGGERS t
+            LEFT JOIN
+                QRTZ_SIMPLE_TRIGGERS st ON (st.SCHED_NAME = t.SCHED_NAME AND st.TRIGGER_GROUP = t.TRIGGER_GROUP AND st.TRIGGER_NAME = t.TRIGGER_NAME)
+            LEFT JOIN
+                QRTZ_CRON_TRIGGERS ct ON (ct.SCHED_NAME = t.SCHED_NAME AND ct.TRIGGER_GROUP = t.TRIGGER_GROUP AND ct.TRIGGER_NAME = t.TRIGGER_NAME)
+            WHERE
+                t.SCHED_NAME = @schedulerName AND t.TRIGGER_NAME = @triggerName AND t.TRIGGER_GROUP = @triggerGroup
+2022-01-21 14:39:23.421 +08:00 [DBG] Prepared SQL: SELECT 1 FROM QRTZ_TRIGGERS WHERE SCHED_NAME = @schedulerName AND TRIGGER_NAME = @triggerName AND TRIGGER_GROUP = @triggerGroup
+2022-01-21 14:39:23.425 +08:00 [DBG] Prepared SQL: SELECT TRIGGER_GROUP FROM QRTZ_PAUSED_TRIGGER_GRPS WHERE SCHED_NAME = @schedulerName AND TRIGGER_GROUP = @triggerGroup
+2022-01-21 14:39:23.431 +08:00 [DBG] Prepared SQL: SELECT TRIGGER_GROUP FROM QRTZ_PAUSED_TRIGGER_GRPS WHERE SCHED_NAME = @schedulerName AND TRIGGER_GROUP = @triggerGroup
+2022-01-21 14:39:23.435 +08:00 [DBG] Prepared SQL: SELECT JOB_NAME,JOB_GROUP,DESCRIPTION,JOB_CLASS_NAME,IS_DURABLE,REQUESTS_RECOVERY,JOB_DATA FROM QRTZ_JOB_DETAILS WHERE SCHED_NAME = @schedulerName AND JOB_NAME = @jobName AND JOB_GROUP = @jobGroup
+2022-01-21 14:39:23.628 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_TRIGGERS SET JOB_NAME = @triggerJobName, JOB_GROUP = @triggerJobGroup, DESCRIPTION = @triggerDescription, NEXT_FIRE_TIME = @triggerNextFireTime, PREV_FIRE_TIME = @triggerPreviousFireTime, 
+                        TRIGGER_STATE = @triggerState, TRIGGER_TYPE = @triggerType, START_TIME = @triggerStartTime, END_TIME = @triggerEndTime, CALENDAR_NAME = @triggerCalendarName, MISFIRE_INSTR = @triggerMisfireInstruction, PRIORITY = @triggerPriority
+                    WHERE SCHED_NAME = @schedulerName AND TRIGGER_NAME = @triggerName AND TRIGGER_GROUP = @triggerGroup
+2022-01-21 14:39:23.635 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_SIMPLE_TRIGGERS SET REPEAT_COUNT = @triggerRepeatCount, REPEAT_INTERVAL = @triggerRepeatInterval, TIMES_TRIGGERED = @triggerTimesTriggered WHERE SCHED_NAME = @schedulerName AND TRIGGER_NAME = @triggerName AND TRIGGER_GROUP = @triggerGroup
+2022-01-21 14:39:23.637 +08:00 [DBG] Prepared SQL: SELECT 
+                JOB_NAME,
+                JOB_GROUP,
+                DESCRIPTION,
+                NEXT_FIRE_TIME,
+                PREV_FIRE_TIME,
+                TRIGGER_TYPE,
+                START_TIME,
+                END_TIME,
+                CALENDAR_NAME,
+                MISFIRE_INSTR,
+                PRIORITY,
+                JOB_DATA,
+                CRON_EXPRESSION,
+                TIME_ZONE_ID,
+                REPEAT_COUNT,
+                REPEAT_INTERVAL,
+                TIMES_TRIGGERED 
+            FROM 
+                QRTZ_TRIGGERS t
+            LEFT JOIN
+                QRTZ_SIMPLE_TRIGGERS st ON (st.SCHED_NAME = t.SCHED_NAME AND st.TRIGGER_GROUP = t.TRIGGER_GROUP AND st.TRIGGER_NAME = t.TRIGGER_NAME)
+            LEFT JOIN
+                QRTZ_CRON_TRIGGERS ct ON (ct.SCHED_NAME = t.SCHED_NAME AND ct.TRIGGER_GROUP = t.TRIGGER_GROUP AND ct.TRIGGER_NAME = t.TRIGGER_NAME)
+            WHERE
+                t.SCHED_NAME = @schedulerName AND t.TRIGGER_NAME = @triggerName AND t.TRIGGER_GROUP = @triggerGroup
+2022-01-21 14:39:23.639 +08:00 [DBG] Prepared SQL: SELECT 1 FROM QRTZ_TRIGGERS WHERE SCHED_NAME = @schedulerName AND TRIGGER_NAME = @triggerName AND TRIGGER_GROUP = @triggerGroup
+2022-01-21 14:39:23.640 +08:00 [DBG] Prepared SQL: SELECT TRIGGER_GROUP FROM QRTZ_PAUSED_TRIGGER_GRPS WHERE SCHED_NAME = @schedulerName AND TRIGGER_GROUP = @triggerGroup
+2022-01-21 14:39:23.642 +08:00 [DBG] Prepared SQL: SELECT TRIGGER_GROUP FROM QRTZ_PAUSED_TRIGGER_GRPS WHERE SCHED_NAME = @schedulerName AND TRIGGER_GROUP = @triggerGroup
+2022-01-21 14:39:23.643 +08:00 [DBG] Prepared SQL: SELECT JOB_NAME,JOB_GROUP,DESCRIPTION,JOB_CLASS_NAME,IS_DURABLE,REQUESTS_RECOVERY,JOB_DATA FROM QRTZ_JOB_DETAILS WHERE SCHED_NAME = @schedulerName AND JOB_NAME = @jobName AND JOB_GROUP = @jobGroup
+2022-01-21 14:39:23.651 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_TRIGGERS SET JOB_NAME = @triggerJobName, JOB_GROUP = @triggerJobGroup, DESCRIPTION = @triggerDescription, NEXT_FIRE_TIME = @triggerNextFireTime, PREV_FIRE_TIME = @triggerPreviousFireTime, 
+                        TRIGGER_STATE = @triggerState, TRIGGER_TYPE = @triggerType, START_TIME = @triggerStartTime, END_TIME = @triggerEndTime, CALENDAR_NAME = @triggerCalendarName, MISFIRE_INSTR = @triggerMisfireInstruction, PRIORITY = @triggerPriority
+                    WHERE SCHED_NAME = @schedulerName AND TRIGGER_NAME = @triggerName AND TRIGGER_GROUP = @triggerGroup
+2022-01-21 14:39:23.652 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_SIMPLE_TRIGGERS SET REPEAT_COUNT = @triggerRepeatCount, REPEAT_INTERVAL = @triggerRepeatInterval, TIMES_TRIGGERED = @triggerTimesTriggered WHERE SCHED_NAME = @schedulerName AND TRIGGER_NAME = @triggerName AND TRIGGER_GROUP = @triggerGroup
+2022-01-21 14:39:23.659 +08:00 [DBG] Prepared SQL: SELECT * FROM QRTZ_FIRED_TRIGGERS WHERE SCHED_NAME = @schedulerName AND INSTANCE_NAME = @instanceName AND REQUESTS_RECOVERY = @requestsRecovery
+2022-01-21 14:39:23.672 +08:00 [DBG] Prepared SQL: SELECT TRIGGER_NAME, TRIGGER_GROUP FROM QRTZ_TRIGGERS WHERE SCHED_NAME = @schedulerName AND TRIGGER_STATE = @state
+2022-01-21 14:39:23.676 +08:00 [DBG] Prepared SQL: DELETE FROM QRTZ_FIRED_TRIGGERS WHERE SCHED_NAME = @schedulerName
+2022-01-21 14:39:23.687 +08:00 [DBG] Lock 'TRIGGER_ACCESS' returned by: 13ff2239-638e-44e8-96c5-233ae430f393
+2022-01-21 14:39:23.724 +08:00 [DBG] Scanning for misfires...
+2022-01-21 14:39:23.768 +08:00 [DBG] Prepared SQL: SELECT * FROM (SELECT
+                t.TRIGGER_NAME, t.TRIGGER_GROUP, jd.JOB_CLASS_NAME
+              FROM
+                QRTZ_TRIGGERS t
+              JOIN
+                QRTZ_JOB_DETAILS jd ON (jd.SCHED_NAME = t.SCHED_NAME AND  jd.JOB_GROUP = t.JOB_GROUP AND jd.JOB_NAME = t.JOB_NAME) 
+              WHERE
+                t.SCHED_NAME = @schedulerName AND TRIGGER_STATE = @state AND NEXT_FIRE_TIME <= @noLaterThan AND (MISFIRE_INSTR = -1 OR (MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME >= @noEarlierThan))
+              ORDER BY 
+                NEXT_FIRE_TIME ASC, PRIORITY DESC) WHERE rownum <= 1
+2022-01-21 14:39:23.774 +08:00 [DBG] Prepared SQL: SELECT 
+                JOB_NAME,
+                JOB_GROUP,
+                DESCRIPTION,
+                NEXT_FIRE_TIME,
+                PREV_FIRE_TIME,
+                TRIGGER_TYPE,
+                START_TIME,
+                END_TIME,
+                CALENDAR_NAME,
+                MISFIRE_INSTR,
+                PRIORITY,
+                JOB_DATA,
+                CRON_EXPRESSION,
+                TIME_ZONE_ID,
+                REPEAT_COUNT,
+                REPEAT_INTERVAL,
+                TIMES_TRIGGERED 
+            FROM 
+                QRTZ_TRIGGERS t
+            LEFT JOIN
+                QRTZ_SIMPLE_TRIGGERS st ON (st.SCHED_NAME = t.SCHED_NAME AND st.TRIGGER_GROUP = t.TRIGGER_GROUP AND st.TRIGGER_NAME = t.TRIGGER_NAME)
+            LEFT JOIN
+                QRTZ_CRON_TRIGGERS ct ON (ct.SCHED_NAME = t.SCHED_NAME AND ct.TRIGGER_GROUP = t.TRIGGER_GROUP AND ct.TRIGGER_NAME = t.TRIGGER_NAME)
+            WHERE
+                t.SCHED_NAME = @schedulerName AND t.TRIGGER_NAME = @triggerName AND t.TRIGGER_GROUP = @triggerGroup
+2022-01-21 14:39:23.775 +08:00 [DBG] Prepared SQL: SELECT COUNT(TRIGGER_NAME) FROM QRTZ_TRIGGERS WHERE SCHED_NAME = @schedulerName AND MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME < @nextFireTime AND TRIGGER_STATE = @state1
+2022-01-21 14:39:23.778 +08:00 [DBG] Found 0 triggers that missed their scheduled fire-time.
+2022-01-21 14:39:25.399 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_TRIGGERS SET TRIGGER_STATE = @newState WHERE SCHED_NAME = @schedulerName AND TRIGGER_NAME = @triggerName AND TRIGGER_GROUP = @triggerGroup AND TRIGGER_STATE = @oldState AND NEXT_FIRE_TIME = @nextFireTime
+2022-01-21 14:39:25.404 +08:00 [DBG] Prepared SQL: INSERT INTO QRTZ_FIRED_TRIGGERS (SCHED_NAME, ENTRY_ID, TRIGGER_NAME, TRIGGER_GROUP, INSTANCE_NAME, FIRED_TIME, SCHED_TIME, STATE, JOB_NAME, JOB_GROUP, IS_NONCONCURRENT, REQUESTS_RECOVERY, PRIORITY) VALUES(@schedulerName, @triggerEntryId, @triggerName, @triggerGroup, @triggerInstanceName, @triggerFireTime, @triggerScheduledTime, @triggerState, @triggerJobName, @triggerJobGroup, @triggerJobStateful, @triggerJobRequestsRecovery, @triggerPriority)
+2022-01-21 14:39:25.408 +08:00 [DBG] Batch acquisition of 1 triggers
+2022-01-21 14:39:25.409 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is desired by: 2fcf0016-28ea-4d0f-9c1a-a42daafc4091
+2022-01-21 14:39:25.409 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is being obtained: 2fcf0016-28ea-4d0f-9c1a-a42daafc4091
+2022-01-21 14:39:25.409 +08:00 [DBG] Lock 'TRIGGER_ACCESS' given to: 2fcf0016-28ea-4d0f-9c1a-a42daafc4091
+2022-01-21 14:39:25.433 +08:00 [DBG] Prepared SQL: SELECT TRIGGER_STATE FROM QRTZ_TRIGGERS WHERE SCHED_NAME = @schedulerName AND TRIGGER_NAME = @triggerName AND TRIGGER_GROUP = @triggerGroup
+2022-01-21 14:39:25.443 +08:00 [DBG] Prepared SQL: SELECT JOB_NAME,JOB_GROUP,DESCRIPTION,JOB_CLASS_NAME,IS_DURABLE,REQUESTS_RECOVERY,JOB_DATA FROM QRTZ_JOB_DETAILS WHERE SCHED_NAME = @schedulerName AND JOB_NAME = @jobName AND JOB_GROUP = @jobGroup
+2022-01-21 14:39:25.448 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_FIRED_TRIGGERS SET INSTANCE_NAME = @instanceName, FIRED_TIME = @firedTime, SCHED_TIME = @scheduledTime, STATE = @entryState, JOB_NAME = @jobName, JOB_GROUP = @jobGroup, IS_NONCONCURRENT = @isNonConcurrent, REQUESTS_RECOVERY = @requestsRecover WHERE SCHED_NAME = @schedulerName AND ENTRY_ID = @entryId
+2022-01-21 14:39:25.456 +08:00 [DBG] Prepared SQL: SELECT 1 FROM QRTZ_TRIGGERS WHERE SCHED_NAME = @schedulerName AND TRIGGER_NAME = @triggerName AND TRIGGER_GROUP = @triggerGroup
+2022-01-21 14:39:25.463 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_TRIGGERS SET JOB_NAME = @triggerJobName, JOB_GROUP = @triggerJobGroup, DESCRIPTION = @triggerDescription, NEXT_FIRE_TIME = @triggerNextFireTime, PREV_FIRE_TIME = @triggerPreviousFireTime, 
+                        TRIGGER_STATE = @triggerState, TRIGGER_TYPE = @triggerType, START_TIME = @triggerStartTime, END_TIME = @triggerEndTime, CALENDAR_NAME = @triggerCalendarName, MISFIRE_INSTR = @triggerMisfireInstruction, PRIORITY = @triggerPriority
+                    WHERE SCHED_NAME = @schedulerName AND TRIGGER_NAME = @triggerName AND TRIGGER_GROUP = @triggerGroup
+2022-01-21 14:39:25.464 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_SIMPLE_TRIGGERS SET REPEAT_COUNT = @triggerRepeatCount, REPEAT_INTERVAL = @triggerRepeatInterval, TIMES_TRIGGERED = @triggerTimesTriggered WHERE SCHED_NAME = @schedulerName AND TRIGGER_NAME = @triggerName AND TRIGGER_GROUP = @triggerGroup
+2022-01-21 14:39:25.471 +08:00 [DBG] Lock 'TRIGGER_ACCESS' returned by: 2fcf0016-28ea-4d0f-9c1a-a42daafc4091
+2022-01-21 14:39:25.482 +08:00 [DBG] Producing instance of Job '任务调度-测试.百度', class=SchedulerCore.Host.Jobs.HttpJob
+2022-01-21 14:39:25.487 +08:00 [DBG] Prepared SQL: SELECT * FROM (SELECT
+                t.TRIGGER_NAME, t.TRIGGER_GROUP, jd.JOB_CLASS_NAME
+              FROM
+                QRTZ_TRIGGERS t
+              JOIN
+                QRTZ_JOB_DETAILS jd ON (jd.SCHED_NAME = t.SCHED_NAME AND  jd.JOB_GROUP = t.JOB_GROUP AND jd.JOB_NAME = t.JOB_NAME) 
+              WHERE
+                t.SCHED_NAME = @schedulerName AND TRIGGER_STATE = @state AND NEXT_FIRE_TIME <= @noLaterThan AND (MISFIRE_INSTR = -1 OR (MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME >= @noEarlierThan))
+              ORDER BY 
+                NEXT_FIRE_TIME ASC, PRIORITY DESC) WHERE rownum <= 1
+2022-01-21 14:39:25.490 +08:00 [DBG] Prepared SQL: SELECT 
+                JOB_NAME,
+                JOB_GROUP,
+                DESCRIPTION,
+                NEXT_FIRE_TIME,
+                PREV_FIRE_TIME,
+                TRIGGER_TYPE,
+                START_TIME,
+                END_TIME,
+                CALENDAR_NAME,
+                MISFIRE_INSTR,
+                PRIORITY,
+                JOB_DATA,
+                CRON_EXPRESSION,
+                TIME_ZONE_ID,
+                REPEAT_COUNT,
+                REPEAT_INTERVAL,
+                TIMES_TRIGGERED 
+            FROM 
+                QRTZ_TRIGGERS t
+            LEFT JOIN
+                QRTZ_SIMPLE_TRIGGERS st ON (st.SCHED_NAME = t.SCHED_NAME AND st.TRIGGER_GROUP = t.TRIGGER_GROUP AND st.TRIGGER_NAME = t.TRIGGER_NAME)
+            LEFT JOIN
+                QRTZ_CRON_TRIGGERS ct ON (ct.SCHED_NAME = t.SCHED_NAME AND ct.TRIGGER_GROUP = t.TRIGGER_GROUP AND ct.TRIGGER_NAME = t.TRIGGER_NAME)
+            WHERE
+                t.SCHED_NAME = @schedulerName AND t.TRIGGER_NAME = @triggerName AND t.TRIGGER_GROUP = @triggerGroup
+2022-01-21 14:39:25.493 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_TRIGGERS SET TRIGGER_STATE = @newState WHERE SCHED_NAME = @schedulerName AND TRIGGER_NAME = @triggerName AND TRIGGER_GROUP = @triggerGroup AND TRIGGER_STATE = @oldState AND NEXT_FIRE_TIME = @nextFireTime
+2022-01-21 14:39:25.494 +08:00 [DBG] Prepared SQL: INSERT INTO QRTZ_FIRED_TRIGGERS (SCHED_NAME, ENTRY_ID, TRIGGER_NAME, TRIGGER_GROUP, INSTANCE_NAME, FIRED_TIME, SCHED_TIME, STATE, JOB_NAME, JOB_GROUP, IS_NONCONCURRENT, REQUESTS_RECOVERY, PRIORITY) VALUES(@schedulerName, @triggerEntryId, @triggerName, @triggerGroup, @triggerInstanceName, @triggerFireTime, @triggerScheduledTime, @triggerState, @triggerJobName, @triggerJobGroup, @triggerJobStateful, @triggerJobRequestsRecovery, @triggerPriority)
+2022-01-21 14:39:25.496 +08:00 [DBG] Batch acquisition of 1 triggers
+2022-01-21 14:39:25.497 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is desired by: 2fcf0016-28ea-4d0f-9c1a-a42daafc4091
+2022-01-21 14:39:25.497 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is being obtained: 2fcf0016-28ea-4d0f-9c1a-a42daafc4091
+2022-01-21 14:39:25.497 +08:00 [DBG] Lock 'TRIGGER_ACCESS' given to: 2fcf0016-28ea-4d0f-9c1a-a42daafc4091
+2022-01-21 14:39:25.497 +08:00 [DBG] Prepared SQL: SELECT TRIGGER_STATE FROM QRTZ_TRIGGERS WHERE SCHED_NAME = @schedulerName AND TRIGGER_NAME = @triggerName AND TRIGGER_GROUP = @triggerGroup
+2022-01-21 14:39:25.500 +08:00 [DBG] Prepared SQL: SELECT JOB_NAME,JOB_GROUP,DESCRIPTION,JOB_CLASS_NAME,IS_DURABLE,REQUESTS_RECOVERY,JOB_DATA FROM QRTZ_JOB_DETAILS WHERE SCHED_NAME = @schedulerName AND JOB_NAME = @jobName AND JOB_GROUP = @jobGroup
+2022-01-21 14:39:25.513 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_FIRED_TRIGGERS SET INSTANCE_NAME = @instanceName, FIRED_TIME = @firedTime, SCHED_TIME = @scheduledTime, STATE = @entryState, JOB_NAME = @jobName, JOB_GROUP = @jobGroup, IS_NONCONCURRENT = @isNonConcurrent, REQUESTS_RECOVERY = @requestsRecover WHERE SCHED_NAME = @schedulerName AND ENTRY_ID = @entryId
+2022-01-21 14:39:25.514 +08:00 [DBG] Prepared SQL: SELECT 1 FROM QRTZ_TRIGGERS WHERE SCHED_NAME = @schedulerName AND TRIGGER_NAME = @triggerName AND TRIGGER_GROUP = @triggerGroup
+2022-01-21 14:39:25.516 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_TRIGGERS SET JOB_NAME = @triggerJobName, JOB_GROUP = @triggerJobGroup, DESCRIPTION = @triggerDescription, NEXT_FIRE_TIME = @triggerNextFireTime, PREV_FIRE_TIME = @triggerPreviousFireTime, 
+                        TRIGGER_STATE = @triggerState, TRIGGER_TYPE = @triggerType, START_TIME = @triggerStartTime, END_TIME = @triggerEndTime, CALENDAR_NAME = @triggerCalendarName, MISFIRE_INSTR = @triggerMisfireInstruction, PRIORITY = @triggerPriority
+                    WHERE SCHED_NAME = @schedulerName AND TRIGGER_NAME = @triggerName AND TRIGGER_GROUP = @triggerGroup
+2022-01-21 14:39:25.518 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_SIMPLE_TRIGGERS SET REPEAT_COUNT = @triggerRepeatCount, REPEAT_INTERVAL = @triggerRepeatInterval, TIMES_TRIGGERED = @triggerTimesTriggered WHERE SCHED_NAME = @schedulerName AND TRIGGER_NAME = @triggerName AND TRIGGER_GROUP = @triggerGroup
+2022-01-21 14:39:25.519 +08:00 [DBG] Lock 'TRIGGER_ACCESS' returned by: 2fcf0016-28ea-4d0f-9c1a-a42daafc4091
+2022-01-21 14:39:25.520 +08:00 [DBG] Producing instance of Job '任务调度-测试.京东', class=SchedulerCore.Host.Jobs.HttpJob
+2022-01-21 14:39:25.520 +08:00 [DBG] Prepared SQL: SELECT * FROM (SELECT
+                t.TRIGGER_NAME, t.TRIGGER_GROUP, jd.JOB_CLASS_NAME
+              FROM
+                QRTZ_TRIGGERS t
+              JOIN
+                QRTZ_JOB_DETAILS jd ON (jd.SCHED_NAME = t.SCHED_NAME AND  jd.JOB_GROUP = t.JOB_GROUP AND jd.JOB_NAME = t.JOB_NAME) 
+              WHERE
+                t.SCHED_NAME = @schedulerName AND TRIGGER_STATE = @state AND NEXT_FIRE_TIME <= @noLaterThan AND (MISFIRE_INSTR = -1 OR (MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME >= @noEarlierThan))
+              ORDER BY 
+                NEXT_FIRE_TIME ASC, PRIORITY DESC) WHERE rownum <= 1
+2022-01-21 14:39:25.523 +08:00 [DBG] Calling Execute on job 任务调度-测试.京东
+2022-01-21 14:39:25.523 +08:00 [DBG] Calling Execute on job 任务调度-测试.百度
+2022-01-21 14:39:25.523 +08:00 [DBG] Batch acquisition of 0 triggers
+2022-01-21 14:39:31.215 +08:00 [DBG] Trigger instruction : NoInstruction
+2022-01-21 14:39:31.227 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is desired by: 7094bbe4-1a84-439b-8d97-0f26af499dc0
+2022-01-21 14:39:31.227 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is being obtained: 7094bbe4-1a84-439b-8d97-0f26af499dc0
+2022-01-21 14:39:31.227 +08:00 [DBG] Lock 'TRIGGER_ACCESS' given to: 7094bbe4-1a84-439b-8d97-0f26af499dc0
+2022-01-21 14:39:31.233 +08:00 [DBG] Prepared SQL: DELETE FROM QRTZ_FIRED_TRIGGERS WHERE SCHED_NAME = @schedulerName AND ENTRY_ID = @triggerEntryId
+2022-01-21 14:39:31.240 +08:00 [DBG] Lock 'TRIGGER_ACCESS' returned by: 7094bbe4-1a84-439b-8d97-0f26af499dc0
+2022-01-21 14:39:31.527 +08:00 [DBG] Trigger instruction : NoInstruction
+2022-01-21 14:39:31.527 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is desired by: 0b15f8c2-af64-4f5c-a4f9-4e45315497cb
+2022-01-21 14:39:31.527 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is being obtained: 0b15f8c2-af64-4f5c-a4f9-4e45315497cb
+2022-01-21 14:39:31.527 +08:00 [DBG] Lock 'TRIGGER_ACCESS' given to: 0b15f8c2-af64-4f5c-a4f9-4e45315497cb
+2022-01-21 14:39:31.527 +08:00 [DBG] Prepared SQL: DELETE FROM QRTZ_FIRED_TRIGGERS WHERE SCHED_NAME = @schedulerName AND ENTRY_ID = @triggerEntryId
+2022-01-21 14:39:31.529 +08:00 [DBG] Lock 'TRIGGER_ACCESS' returned by: 0b15f8c2-af64-4f5c-a4f9-4e45315497cb
+2022-01-21 14:39:50.053 +08:00 [DBG] Prepared SQL: SELECT * FROM (SELECT
+                t.TRIGGER_NAME, t.TRIGGER_GROUP, jd.JOB_CLASS_NAME
+              FROM
+                QRTZ_TRIGGERS t
+              JOIN
+                QRTZ_JOB_DETAILS jd ON (jd.SCHED_NAME = t.SCHED_NAME AND  jd.JOB_GROUP = t.JOB_GROUP AND jd.JOB_NAME = t.JOB_NAME) 
+              WHERE
+                t.SCHED_NAME = @schedulerName AND TRIGGER_STATE = @state AND NEXT_FIRE_TIME <= @noLaterThan AND (MISFIRE_INSTR = -1 OR (MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME >= @noEarlierThan))
+              ORDER BY 
+                NEXT_FIRE_TIME ASC, PRIORITY DESC) WHERE rownum <= 1
+2022-01-21 14:39:50.055 +08:00 [DBG] Batch acquisition of 0 triggers

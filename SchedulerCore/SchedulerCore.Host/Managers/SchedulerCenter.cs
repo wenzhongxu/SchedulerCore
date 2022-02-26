@@ -42,10 +42,11 @@ namespace SchedulerCore.Host.Managers
             var dbProdierName = AppConfig.DbProviderName;
             delegateType = dbProdierName switch
             {
+                "SQLite-Microsoft" or "SQLite" => typeof(SQLiteDelegate).AssemblyQualifiedName,
+                "Mysql" => typeof(MySQLDelegate).AssemblyQualifiedName,
                 "OracleODPManaged" => typeof(OracleDelegate).AssemblyQualifiedName,
-                "MySql" => typeof(MySQLDelegate).AssemblyQualifiedName,
-                "SqlServer" => typeof(SqlServerDelegate).AssemblyQualifiedName,
-                _ => typeof(OracleDelegate).AssemblyQualifiedName,
+                "SqlServer" or "SQLServerMOT" => typeof(SqlServerDelegate).AssemblyQualifiedName,
+                _ => throw new Exception("dbProviderName unreasonable"),
             };
         }
 
