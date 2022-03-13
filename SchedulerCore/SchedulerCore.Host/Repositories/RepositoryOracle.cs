@@ -15,6 +15,11 @@ namespace SchedulerCore.Host.Repositories
             DbProvider = dbProvider ?? throw new ArgumentNullException(nameof(dbProvider));
         }
 
+        public Task<int> InitTable()
+        {
+            return Task.FromResult(-1);
+        }
+
     }
 }
 

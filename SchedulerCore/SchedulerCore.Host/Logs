@@ -1,88 +1,28 @@
-2022-01-21 14:39:22.485 +08:00 [DBG] TaskSchedulingThreadPool configured with max concurrency of 10 and TaskScheduler ThreadPoolTaskScheduler.
-2022-01-21 14:39:22.525 +08:00 [DBG] Adding TriggerPersistenceDelegate of type: Quartz.Impl.AdoJobStore.SimpleTriggerPersistenceDelegate
-2022-01-21 14:39:22.525 +08:00 [DBG] Adding TriggerPersistenceDelegate of type: Quartz.Impl.AdoJobStore.CronTriggerPersistenceDelegate
-2022-01-21 14:39:22.526 +08:00 [DBG] Adding TriggerPersistenceDelegate of type: Quartz.Impl.AdoJobStore.CalendarIntervalTriggerPersistenceDelegate
-2022-01-21 14:39:22.526 +08:00 [DBG] Adding TriggerPersistenceDelegate of type: Quartz.Impl.AdoJobStore.DailyTimeIntervalTriggerPersistenceDelegate
-2022-01-21 14:39:22.538 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is desired by: 13ff2239-638e-44e8-96c5-233ae430f393
-2022-01-21 14:39:22.539 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is being obtained: 13ff2239-638e-44e8-96c5-233ae430f393
-2022-01-21 14:39:22.539 +08:00 [DBG] Lock 'TRIGGER_ACCESS' given to: 13ff2239-638e-44e8-96c5-233ae430f393
-2022-01-21 14:39:23.058 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_TRIGGERS SET TRIGGER_STATE = @newState WHERE SCHED_NAME = @schedulerName AND (TRIGGER_STATE = @oldState1 OR TRIGGER_STATE = @oldState2)
-2022-01-21 14:39:23.244 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_TRIGGERS SET TRIGGER_STATE = @newState WHERE SCHED_NAME = @schedulerName AND (TRIGGER_STATE = @oldState1 OR TRIGGER_STATE = @oldState2)
-2022-01-21 14:39:23.254 +08:00 [DBG] Prepared SQL: SELECT TRIGGER_NAME, TRIGGER_GROUP FROM QRTZ_TRIGGERS WHERE SCHED_NAME = @schedulerName AND MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME < @nextFireTime AND TRIGGER_STATE = @state1 ORDER BY NEXT_FIRE_TIME ASC, PRIORITY DESC
-2022-01-21 14:39:23.337 +08:00 [DBG] Prepared SQL: SELECT 
-                JOB_NAME,
-                JOB_GROUP,
-                DESCRIPTION,
-                NEXT_FIRE_TIME,
-                PREV_FIRE_TIME,
-                TRIGGER_TYPE,
-                START_TIME,
-                END_TIME,
-                CALENDAR_NAME,
-                MISFIRE_INSTR,
-                PRIORITY,
-                JOB_DATA,
-                CRON_EXPRESSION,
-                TIME_ZONE_ID,
-                REPEAT_COUNT,
-                REPEAT_INTERVAL,
-                TIMES_TRIGGERED 
-            FROM 
-                QRTZ_TRIGGERS t
-            LEFT JOIN
-                QRTZ_SIMPLE_TRIGGERS st ON (st.SCHED_NAME = t.SCHED_NAME AND st.TRIGGER_GROUP = t.TRIGGER_GROUP AND st.TRIGGER_NAME = t.TRIGGER_NAME)
-            LEFT JOIN
-                QRTZ_CRON_TRIGGERS ct ON (ct.SCHED_NAME = t.SCHED_NAME AND ct.TRIGGER_GROUP = t.TRIGGER_GROUP AND ct.TRIGGER_NAME = t.TRIGGER_NAME)
-            WHERE
-                t.SCHED_NAME = @schedulerName AND t.TRIGGER_NAME = @triggerName AND t.TRIGGER_GROUP = @triggerGroup
-2022-01-21 14:39:23.421 +08:00 [DBG] Prepared SQL: SELECT 1 FROM QRTZ_TRIGGERS WHERE SCHED_NAME = @schedulerName AND TRIGGER_NAME = @triggerName AND TRIGGER_GROUP = @triggerGroup
-2022-01-21 14:39:23.425 +08:00 [DBG] Prepared SQL: SELECT TRIGGER_GROUP FROM QRTZ_PAUSED_TRIGGER_GRPS WHERE SCHED_NAME = @schedulerName AND TRIGGER_GROUP = @triggerGroup
-2022-01-21 14:39:23.431 +08:00 [DBG] Prepared SQL: SELECT TRIGGER_GROUP FROM QRTZ_PAUSED_TRIGGER_GRPS WHERE SCHED_NAME = @schedulerName AND TRIGGER_GROUP = @triggerGroup
-2022-01-21 14:39:23.435 +08:00 [DBG] Prepared SQL: SELECT JOB_NAME,JOB_GROUP,DESCRIPTION,JOB_CLASS_NAME,IS_DURABLE,REQUESTS_RECOVERY,JOB_DATA FROM QRTZ_JOB_DETAILS WHERE SCHED_NAME = @schedulerName AND JOB_NAME = @jobName AND JOB_GROUP = @jobGroup
-2022-01-21 14:39:23.628 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_TRIGGERS SET JOB_NAME = @triggerJobName, JOB_GROUP = @triggerJobGroup, DESCRIPTION = @triggerDescription, NEXT_FIRE_TIME = @triggerNextFireTime, PREV_FIRE_TIME = @triggerPreviousFireTime, 
-                        TRIGGER_STATE = @triggerState, TRIGGER_TYPE = @triggerType, START_TIME = @triggerStartTime, END_TIME = @triggerEndTime, CALENDAR_NAME = @triggerCalendarName, MISFIRE_INSTR = @triggerMisfireInstruction, PRIORITY = @triggerPriority
-                    WHERE SCHED_NAME = @schedulerName AND TRIGGER_NAME = @triggerName AND TRIGGER_GROUP = @triggerGroup
-2022-01-21 14:39:23.635 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_SIMPLE_TRIGGERS SET REPEAT_COUNT = @triggerRepeatCount, REPEAT_INTERVAL = @triggerRepeatInterval, TIMES_TRIGGERED = @triggerTimesTriggered WHERE SCHED_NAME = @schedulerName AND TRIGGER_NAME = @triggerName AND TRIGGER_GROUP = @triggerGroup
-2022-01-21 14:39:23.637 +08:00 [DBG] Prepared SQL: SELECT 
-                JOB_NAME,
-                JOB_GROUP,
-                DESCRIPTION,
-                NEXT_FIRE_TIME,
-                PREV_FIRE_TIME,
-                TRIGGER_TYPE,
-                START_TIME,
-                END_TIME,
-                CALENDAR_NAME,
-                MISFIRE_INSTR,
-                PRIORITY,
-                JOB_DATA,
-                CRON_EXPRESSION,
-                TIME_ZONE_ID,
-                REPEAT_COUNT,
-                REPEAT_INTERVAL,
-                TIMES_TRIGGERED 
-            FROM 
-                QRTZ_TRIGGERS t
-            LEFT JOIN
-                QRTZ_SIMPLE_TRIGGERS st ON (st.SCHED_NAME = t.SCHED_NAME AND st.TRIGGER_GROUP = t.TRIGGER_GROUP AND st.TRIGGER_NAME = t.TRIGGER_NAME)
-            LEFT JOIN
-                QRTZ_CRON_TRIGGERS ct ON (ct.SCHED_NAME = t.SCHED_NAME AND ct.TRIGGER_GROUP = t.TRIGGER_GROUP AND ct.TRIGGER_NAME = t.TRIGGER_NAME)
-            WHERE
-                t.SCHED_NAME = @schedulerName AND t.TRIGGER_NAME = @triggerName AND t.TRIGGER_GROUP = @triggerGroup
-2022-01-21 14:39:23.639 +08:00 [DBG] Prepared SQL: SELECT 1 FROM QRTZ_TRIGGERS WHERE SCHED_NAME = @schedulerName AND TRIGGER_NAME = @triggerName AND TRIGGER_GROUP = @triggerGroup
-2022-01-21 14:39:23.640 +08:00 [DBG] Prepared SQL: SELECT TRIGGER_GROUP FROM QRTZ_PAUSED_TRIGGER_GRPS WHERE SCHED_NAME = @schedulerName AND TRIGGER_GROUP = @triggerGroup
-2022-01-21 14:39:23.642 +08:00 [DBG] Prepared SQL: SELECT TRIGGER_GROUP FROM QRTZ_PAUSED_TRIGGER_GRPS WHERE SCHED_NAME = @schedulerName AND TRIGGER_GROUP = @triggerGroup
-2022-01-21 14:39:23.643 +08:00 [DBG] Prepared SQL: SELECT JOB_NAME,JOB_GROUP,DESCRIPTION,JOB_CLASS_NAME,IS_DURABLE,REQUESTS_RECOVERY,JOB_DATA FROM QRTZ_JOB_DETAILS WHERE SCHED_NAME = @schedulerName AND JOB_NAME = @jobName AND JOB_GROUP = @jobGroup
-2022-01-21 14:39:23.651 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_TRIGGERS SET JOB_NAME = @triggerJobName, JOB_GROUP = @triggerJobGroup, DESCRIPTION = @triggerDescription, NEXT_FIRE_TIME = @triggerNextFireTime, PREV_FIRE_TIME = @triggerPreviousFireTime, 
-                        TRIGGER_STATE = @triggerState, TRIGGER_TYPE = @triggerType, START_TIME = @triggerStartTime, END_TIME = @triggerEndTime, CALENDAR_NAME = @triggerCalendarName, MISFIRE_INSTR = @triggerMisfireInstruction, PRIORITY = @triggerPriority
-                    WHERE SCHED_NAME = @schedulerName AND TRIGGER_NAME = @triggerName AND TRIGGER_GROUP = @triggerGroup
-2022-01-21 14:39:23.652 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_SIMPLE_TRIGGERS SET REPEAT_COUNT = @triggerRepeatCount, REPEAT_INTERVAL = @triggerRepeatInterval, TIMES_TRIGGERED = @triggerTimesTriggered WHERE SCHED_NAME = @schedulerName AND TRIGGER_NAME = @triggerName AND TRIGGER_GROUP = @triggerGroup
-2022-01-21 14:39:23.659 +08:00 [DBG] Prepared SQL: SELECT * FROM QRTZ_FIRED_TRIGGERS WHERE SCHED_NAME = @schedulerName AND INSTANCE_NAME = @instanceName AND REQUESTS_RECOVERY = @requestsRecovery
-2022-01-21 14:39:23.672 +08:00 [DBG] Prepared SQL: SELECT TRIGGER_NAME, TRIGGER_GROUP FROM QRTZ_TRIGGERS WHERE SCHED_NAME = @schedulerName AND TRIGGER_STATE = @state
-2022-01-21 14:39:23.676 +08:00 [DBG] Prepared SQL: DELETE FROM QRTZ_FIRED_TRIGGERS WHERE SCHED_NAME = @schedulerName
-2022-01-21 14:39:23.687 +08:00 [DBG] Lock 'TRIGGER_ACCESS' returned by: 13ff2239-638e-44e8-96c5-233ae430f393
-2022-01-21 14:39:23.724 +08:00 [DBG] Scanning for misfires...
-2022-01-21 14:39:23.768 +08:00 [DBG] Prepared SQL: SELECT * FROM (SELECT
+2022-03-10 16:26:03.200 +08:00 [DBG] TaskSchedulingThreadPool configured with max concurrency of 10 and TaskScheduler ThreadPoolTaskScheduler.
+2022-03-10 16:26:03.234 +08:00 [DBG] Adding TriggerPersistenceDelegate of type: Quartz.Impl.AdoJobStore.SimpleTriggerPersistenceDelegate
+2022-03-10 16:26:03.235 +08:00 [DBG] Adding TriggerPersistenceDelegate of type: Quartz.Impl.AdoJobStore.CronTriggerPersistenceDelegate
+2022-03-10 16:26:03.235 +08:00 [DBG] Adding TriggerPersistenceDelegate of type: Quartz.Impl.AdoJobStore.CalendarIntervalTriggerPersistenceDelegate
+2022-03-10 16:26:03.235 +08:00 [DBG] Adding TriggerPersistenceDelegate of type: Quartz.Impl.AdoJobStore.DailyTimeIntervalTriggerPersistenceDelegate
+2022-03-10 16:26:05.878 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is desired by: "57b78ff0-d082-4c17-a8ca-d57bdeaeff77"
+2022-03-10 16:26:05.885 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_LOCKS SET LOCK_NAME = LOCK_NAME WHERE SCHED_NAME = @schedulerName AND LOCK_NAME = @lockName
+2022-03-10 16:26:05.886 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is being obtained: "57b78ff0-d082-4c17-a8ca-d57bdeaeff77"
+2022-03-10 16:26:05.891 +08:00 [DBG] Inserting new lock row for lock: 'TRIGGER_ACCESS' being obtained: "57b78ff0-d082-4c17-a8ca-d57bdeaeff77"
+2022-03-10 16:26:05.891 +08:00 [DBG] Prepared SQL: INSERT INTO QRTZ_LOCKS(SCHED_NAME, LOCK_NAME) VALUES (@schedulerName, @lockName)
+2022-03-10 16:26:05.892 +08:00 [DBG] Lock 'TRIGGER_ACCESS' given to: "57b78ff0-d082-4c17-a8ca-d57bdeaeff77"
+2022-03-10 16:26:05.908 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_TRIGGERS SET TRIGGER_STATE = @newState WHERE SCHED_NAME = @schedulerName AND (TRIGGER_STATE = @oldState1 OR TRIGGER_STATE = @oldState2)
+2022-03-10 16:26:05.908 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_TRIGGERS SET TRIGGER_STATE = @newState WHERE SCHED_NAME = @schedulerName AND (TRIGGER_STATE = @oldState1 OR TRIGGER_STATE = @oldState2)
+2022-03-10 16:26:05.918 +08:00 [DBG] Prepared SQL: SELECT TRIGGER_NAME, TRIGGER_GROUP FROM QRTZ_TRIGGERS WHERE SCHED_NAME = @schedulerName AND MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME < @nextFireTime AND TRIGGER_STATE = @state1 ORDER BY NEXT_FIRE_TIME ASC, PRIORITY DESC
+2022-03-10 16:26:05.919 +08:00 [DBG] Found 0 triggers that missed their scheduled fire-time.
+2022-03-10 16:26:05.926 +08:00 [DBG] Prepared SQL: SELECT * FROM QRTZ_FIRED_TRIGGERS WHERE SCHED_NAME = @schedulerName AND INSTANCE_NAME = @instanceName AND REQUESTS_RECOVERY = @requestsRecovery
+2022-03-10 16:26:05.929 +08:00 [DBG] Prepared SQL: SELECT TRIGGER_NAME, TRIGGER_GROUP FROM QRTZ_TRIGGERS WHERE SCHED_NAME = @schedulerName AND TRIGGER_STATE = @state
+2022-03-10 16:26:05.931 +08:00 [DBG] Prepared SQL: DELETE FROM QRTZ_FIRED_TRIGGERS WHERE SCHED_NAME = @schedulerName
+2022-03-10 16:26:06.293 +08:00 [DBG] Lock 'TRIGGER_ACCESS' returned by: "57b78ff0-d082-4c17-a8ca-d57bdeaeff77"
+2022-03-10 16:26:08.273 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is desired by: "5b5475c4-6008-4ede-8f96-02a86c81f678"
+2022-03-10 16:26:08.273 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_LOCKS SET LOCK_NAME = LOCK_NAME WHERE SCHED_NAME = @schedulerName AND LOCK_NAME = @lockName
+2022-03-10 16:26:08.273 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is being obtained: "5b5475c4-6008-4ede-8f96-02a86c81f678"
+2022-03-10 16:26:08.275 +08:00 [DBG] Lock 'TRIGGER_ACCESS' given to: "5b5475c4-6008-4ede-8f96-02a86c81f678"
+2022-03-10 16:26:08.275 +08:00 [DBG] Scanning for misfires...
+2022-03-10 16:26:08.312 +08:00 [DBG] Prepared SQL: SELECT
                 t.TRIGGER_NAME, t.TRIGGER_GROUP, jd.JOB_CLASS_NAME
               FROM
                 QRTZ_TRIGGERS t
@@ -91,52 +31,16 @@
               WHERE
                 t.SCHED_NAME = @schedulerName AND TRIGGER_STATE = @state AND NEXT_FIRE_TIME <= @noLaterThan AND (MISFIRE_INSTR = -1 OR (MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME >= @noEarlierThan))
               ORDER BY 
-                NEXT_FIRE_TIME ASC, PRIORITY DESC) WHERE rownum <= 1
-2022-01-21 14:39:23.774 +08:00 [DBG] Prepared SQL: SELECT 
-                JOB_NAME,
-                JOB_GROUP,
-                DESCRIPTION,
-                NEXT_FIRE_TIME,
-                PREV_FIRE_TIME,
-                TRIGGER_TYPE,
-                START_TIME,
-                END_TIME,
-                CALENDAR_NAME,
-                MISFIRE_INSTR,
-                PRIORITY,
-                JOB_DATA,
-                CRON_EXPRESSION,
-                TIME_ZONE_ID,
-                REPEAT_COUNT,
-                REPEAT_INTERVAL,
-                TIMES_TRIGGERED 
-            FROM 
-                QRTZ_TRIGGERS t
-            LEFT JOIN
-                QRTZ_SIMPLE_TRIGGERS st ON (st.SCHED_NAME = t.SCHED_NAME AND st.TRIGGER_GROUP = t.TRIGGER_GROUP AND st.TRIGGER_NAME = t.TRIGGER_NAME)
-            LEFT JOIN
-                QRTZ_CRON_TRIGGERS ct ON (ct.SCHED_NAME = t.SCHED_NAME AND ct.TRIGGER_GROUP = t.TRIGGER_GROUP AND ct.TRIGGER_NAME = t.TRIGGER_NAME)
-            WHERE
-                t.SCHED_NAME = @schedulerName AND t.TRIGGER_NAME = @triggerName AND t.TRIGGER_GROUP = @triggerGroup
-2022-01-21 14:39:23.775 +08:00 [DBG] Prepared SQL: SELECT COUNT(TRIGGER_NAME) FROM QRTZ_TRIGGERS WHERE SCHED_NAME = @schedulerName AND MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME < @nextFireTime AND TRIGGER_STATE = @state1
-2022-01-21 14:39:23.778 +08:00 [DBG] Found 0 triggers that missed their scheduled fire-time.
-2022-01-21 14:39:25.399 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_TRIGGERS SET TRIGGER_STATE = @newState WHERE SCHED_NAME = @schedulerName AND TRIGGER_NAME = @triggerName AND TRIGGER_GROUP = @triggerGroup AND TRIGGER_STATE = @oldState AND NEXT_FIRE_TIME = @nextFireTime
-2022-01-21 14:39:25.404 +08:00 [DBG] Prepared SQL: INSERT INTO QRTZ_FIRED_TRIGGERS (SCHED_NAME, ENTRY_ID, TRIGGER_NAME, TRIGGER_GROUP, INSTANCE_NAME, FIRED_TIME, SCHED_TIME, STATE, JOB_NAME, JOB_GROUP, IS_NONCONCURRENT, REQUESTS_RECOVERY, PRIORITY) VALUES(@schedulerName, @triggerEntryId, @triggerName, @triggerGroup, @triggerInstanceName, @triggerFireTime, @triggerScheduledTime, @triggerState, @triggerJobName, @triggerJobGroup, @triggerJobStateful, @triggerJobRequestsRecovery, @triggerPriority)
-2022-01-21 14:39:25.408 +08:00 [DBG] Batch acquisition of 1 triggers
-2022-01-21 14:39:25.409 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is desired by: 2fcf0016-28ea-4d0f-9c1a-a42daafc4091
-2022-01-21 14:39:25.409 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is being obtained: 2fcf0016-28ea-4d0f-9c1a-a42daafc4091
-2022-01-21 14:39:25.409 +08:00 [DBG] Lock 'TRIGGER_ACCESS' given to: 2fcf0016-28ea-4d0f-9c1a-a42daafc4091
-2022-01-21 14:39:25.433 +08:00 [DBG] Prepared SQL: SELECT TRIGGER_STATE FROM QRTZ_TRIGGERS WHERE SCHED_NAME = @schedulerName AND TRIGGER_NAME = @triggerName AND TRIGGER_GROUP = @triggerGroup
-2022-01-21 14:39:25.443 +08:00 [DBG] Prepared SQL: SELECT JOB_NAME,JOB_GROUP,DESCRIPTION,JOB_CLASS_NAME,IS_DURABLE,REQUESTS_RECOVERY,JOB_DATA FROM QRTZ_JOB_DETAILS WHERE SCHED_NAME = @schedulerName AND JOB_NAME = @jobName AND JOB_GROUP = @jobGroup
-2022-01-21 14:39:25.448 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_FIRED_TRIGGERS SET INSTANCE_NAME = @instanceName, FIRED_TIME = @firedTime, SCHED_TIME = @scheduledTime, STATE = @entryState, JOB_NAME = @jobName, JOB_GROUP = @jobGroup, IS_NONCONCURRENT = @isNonConcurrent, REQUESTS_RECOVERY = @requestsRecover WHERE SCHED_NAME = @schedulerName AND ENTRY_ID = @entryId
-2022-01-21 14:39:25.456 +08:00 [DBG] Prepared SQL: SELECT 1 FROM QRTZ_TRIGGERS WHERE SCHED_NAME = @schedulerName AND TRIGGER_NAME = @triggerName AND TRIGGER_GROUP = @triggerGroup
-2022-01-21 14:39:25.463 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_TRIGGERS SET JOB_NAME = @triggerJobName, JOB_GROUP = @triggerJobGroup, DESCRIPTION = @triggerDescription, NEXT_FIRE_TIME = @triggerNextFireTime, PREV_FIRE_TIME = @triggerPreviousFireTime, 
-                        TRIGGER_STATE = @triggerState, TRIGGER_TYPE = @triggerType, START_TIME = @triggerStartTime, END_TIME = @triggerEndTime, CALENDAR_NAME = @triggerCalendarName, MISFIRE_INSTR = @triggerMisfireInstruction, PRIORITY = @triggerPriority
-                    WHERE SCHED_NAME = @schedulerName AND TRIGGER_NAME = @triggerName AND TRIGGER_GROUP = @triggerGroup
-2022-01-21 14:39:25.464 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_SIMPLE_TRIGGERS SET REPEAT_COUNT = @triggerRepeatCount, REPEAT_INTERVAL = @triggerRepeatInterval, TIMES_TRIGGERED = @triggerTimesTriggered WHERE SCHED_NAME = @schedulerName AND TRIGGER_NAME = @triggerName AND TRIGGER_GROUP = @triggerGroup
-2022-01-21 14:39:25.471 +08:00 [DBG] Lock 'TRIGGER_ACCESS' returned by: 2fcf0016-28ea-4d0f-9c1a-a42daafc4091
-2022-01-21 14:39:25.482 +08:00 [DBG] Producing instance of Job '任务调度-测试.百度', class=SchedulerCore.Host.Jobs.HttpJob
-2022-01-21 14:39:25.487 +08:00 [DBG] Prepared SQL: SELECT * FROM (SELECT
+                NEXT_FIRE_TIME ASC, PRIORITY DESC LIMIT 1
+2022-03-10 16:26:08.456 +08:00 [DBG] Lock 'TRIGGER_ACCESS' returned by: "5b5475c4-6008-4ede-8f96-02a86c81f678"
+2022-03-10 16:26:08.456 +08:00 [DBG] Batch acquisition of 0 triggers
+2022-03-10 16:26:08.467 +08:00 [DBG] Prepared SQL: SELECT COUNT(TRIGGER_NAME) FROM QRTZ_TRIGGERS WHERE SCHED_NAME = @schedulerName AND MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME < @nextFireTime AND TRIGGER_STATE = @state1
+2022-03-10 16:26:08.470 +08:00 [DBG] Found 0 triggers that missed their scheduled fire-time.
+2022-03-10 16:26:31.859 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is desired by: "5b5475c4-6008-4ede-8f96-02a86c81f678"
+2022-03-10 16:26:31.859 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_LOCKS SET LOCK_NAME = LOCK_NAME WHERE SCHED_NAME = @schedulerName AND LOCK_NAME = @lockName
+2022-03-10 16:26:31.859 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is being obtained: "5b5475c4-6008-4ede-8f96-02a86c81f678"
+2022-03-10 16:26:31.862 +08:00 [DBG] Lock 'TRIGGER_ACCESS' given to: "5b5475c4-6008-4ede-8f96-02a86c81f678"
+2022-03-10 16:26:31.862 +08:00 [DBG] Prepared SQL: SELECT
                 t.TRIGGER_NAME, t.TRIGGER_GROUP, jd.JOB_CLASS_NAME
               FROM
                 QRTZ_TRIGGERS t
@@ -145,50 +49,14 @@
               WHERE
                 t.SCHED_NAME = @schedulerName AND TRIGGER_STATE = @state AND NEXT_FIRE_TIME <= @noLaterThan AND (MISFIRE_INSTR = -1 OR (MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME >= @noEarlierThan))
               ORDER BY 
-                NEXT_FIRE_TIME ASC, PRIORITY DESC) WHERE rownum <= 1
-2022-01-21 14:39:25.490 +08:00 [DBG] Prepared SQL: SELECT 
-                JOB_NAME,
-                JOB_GROUP,
-                DESCRIPTION,
-                NEXT_FIRE_TIME,
-                PREV_FIRE_TIME,
-                TRIGGER_TYPE,
-                START_TIME,
-                END_TIME,
-                CALENDAR_NAME,
-                MISFIRE_INSTR,
-                PRIORITY,
-                JOB_DATA,
-                CRON_EXPRESSION,
-                TIME_ZONE_ID,
-                REPEAT_COUNT,
-                REPEAT_INTERVAL,
-                TIMES_TRIGGERED 
-            FROM 
-                QRTZ_TRIGGERS t
-            LEFT JOIN
-                QRTZ_SIMPLE_TRIGGERS st ON (st.SCHED_NAME = t.SCHED_NAME AND st.TRIGGER_GROUP = t.TRIGGER_GROUP AND st.TRIGGER_NAME = t.TRIGGER_NAME)
-            LEFT JOIN
-                QRTZ_CRON_TRIGGERS ct ON (ct.SCHED_NAME = t.SCHED_NAME AND ct.TRIGGER_GROUP = t.TRIGGER_GROUP AND ct.TRIGGER_NAME = t.TRIGGER_NAME)
-            WHERE
-                t.SCHED_NAME = @schedulerName AND t.TRIGGER_NAME = @triggerName AND t.TRIGGER_GROUP = @triggerGroup
-2022-01-21 14:39:25.493 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_TRIGGERS SET TRIGGER_STATE = @newState WHERE SCHED_NAME = @schedulerName AND TRIGGER_NAME = @triggerName AND TRIGGER_GROUP = @triggerGroup AND TRIGGER_STATE = @oldState AND NEXT_FIRE_TIME = @nextFireTime
-2022-01-21 14:39:25.494 +08:00 [DBG] Prepared SQL: INSERT INTO QRTZ_FIRED_TRIGGERS (SCHED_NAME, ENTRY_ID, TRIGGER_NAME, TRIGGER_GROUP, INSTANCE_NAME, FIRED_TIME, SCHED_TIME, STATE, JOB_NAME, JOB_GROUP, IS_NONCONCURRENT, REQUESTS_RECOVERY, PRIORITY) VALUES(@schedulerName, @triggerEntryId, @triggerName, @triggerGroup, @triggerInstanceName, @triggerFireTime, @triggerScheduledTime, @triggerState, @triggerJobName, @triggerJobGroup, @triggerJobStateful, @triggerJobRequestsRecovery, @triggerPriority)
-2022-01-21 14:39:25.496 +08:00 [DBG] Batch acquisition of 1 triggers
-2022-01-21 14:39:25.497 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is desired by: 2fcf0016-28ea-4d0f-9c1a-a42daafc4091
-2022-01-21 14:39:25.497 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is being obtained: 2fcf0016-28ea-4d0f-9c1a-a42daafc4091
-2022-01-21 14:39:25.497 +08:00 [DBG] Lock 'TRIGGER_ACCESS' given to: 2fcf0016-28ea-4d0f-9c1a-a42daafc4091
-2022-01-21 14:39:25.497 +08:00 [DBG] Prepared SQL: SELECT TRIGGER_STATE FROM QRTZ_TRIGGERS WHERE SCHED_NAME = @schedulerName AND TRIGGER_NAME = @triggerName AND TRIGGER_GROUP = @triggerGroup
-2022-01-21 14:39:25.500 +08:00 [DBG] Prepared SQL: SELECT JOB_NAME,JOB_GROUP,DESCRIPTION,JOB_CLASS_NAME,IS_DURABLE,REQUESTS_RECOVERY,JOB_DATA FROM QRTZ_JOB_DETAILS WHERE SCHED_NAME = @schedulerName AND JOB_NAME = @jobName AND JOB_GROUP = @jobGroup
-2022-01-21 14:39:25.513 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_FIRED_TRIGGERS SET INSTANCE_NAME = @instanceName, FIRED_TIME = @firedTime, SCHED_TIME = @scheduledTime, STATE = @entryState, JOB_NAME = @jobName, JOB_GROUP = @jobGroup, IS_NONCONCURRENT = @isNonConcurrent, REQUESTS_RECOVERY = @requestsRecover WHERE SCHED_NAME = @schedulerName AND ENTRY_ID = @entryId
-2022-01-21 14:39:25.514 +08:00 [DBG] Prepared SQL: SELECT 1 FROM QRTZ_TRIGGERS WHERE SCHED_NAME = @schedulerName AND TRIGGER_NAME = @triggerName AND TRIGGER_GROUP = @triggerGroup
-2022-01-21 14:39:25.516 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_TRIGGERS SET JOB_NAME = @triggerJobName, JOB_GROUP = @triggerJobGroup, DESCRIPTION = @triggerDescription, NEXT_FIRE_TIME = @triggerNextFireTime, PREV_FIRE_TIME = @triggerPreviousFireTime, 
-                        TRIGGER_STATE = @triggerState, TRIGGER_TYPE = @triggerType, START_TIME = @triggerStartTime, END_TIME = @triggerEndTime, CALENDAR_NAME = @triggerCalendarName, MISFIRE_INSTR = @triggerMisfireInstruction, PRIORITY = @triggerPriority
-                    WHERE SCHED_NAME = @schedulerName AND TRIGGER_NAME = @triggerName AND TRIGGER_GROUP = @triggerGroup
-2022-01-21 14:39:25.518 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_SIMPLE_TRIGGERS SET REPEAT_COUNT = @triggerRepeatCount, REPEAT_INTERVAL = @triggerRepeatInterval, TIMES_TRIGGERED = @triggerTimesTriggered WHERE SCHED_NAME = @schedulerName AND TRIGGER_NAME = @triggerName AND TRIGGER_GROUP = @triggerGroup
-2022-01-21 14:39:25.519 +08:00 [DBG] Lock 'TRIGGER_ACCESS' returned by: 2fcf0016-28ea-4d0f-9c1a-a42daafc4091
-2022-01-21 14:39:25.520 +08:00 [DBG] Producing instance of Job '任务调度-测试.京东', class=SchedulerCore.Host.Jobs.HttpJob
-2022-01-21 14:39:25.520 +08:00 [DBG] Prepared SQL: SELECT * FROM (SELECT
+                NEXT_FIRE_TIME ASC, PRIORITY DESC LIMIT 1
+2022-03-10 16:26:31.922 +08:00 [DBG] Lock 'TRIGGER_ACCESS' returned by: "5b5475c4-6008-4ede-8f96-02a86c81f678"
+2022-03-10 16:26:31.922 +08:00 [DBG] Batch acquisition of 0 triggers
+2022-03-10 16:26:58.325 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is desired by: "5b5475c4-6008-4ede-8f96-02a86c81f678"
+2022-03-10 16:26:58.325 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_LOCKS SET LOCK_NAME = LOCK_NAME WHERE SCHED_NAME = @schedulerName AND LOCK_NAME = @lockName
+2022-03-10 16:26:58.325 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is being obtained: "5b5475c4-6008-4ede-8f96-02a86c81f678"
+2022-03-10 16:26:58.328 +08:00 [DBG] Lock 'TRIGGER_ACCESS' given to: "5b5475c4-6008-4ede-8f96-02a86c81f678"
+2022-03-10 16:26:58.328 +08:00 [DBG] Prepared SQL: SELECT
                 t.TRIGGER_NAME, t.TRIGGER_GROUP, jd.JOB_CLASS_NAME
               FROM
                 QRTZ_TRIGGERS t
@@ -197,23 +65,17 @@
               WHERE
                 t.SCHED_NAME = @schedulerName AND TRIGGER_STATE = @state AND NEXT_FIRE_TIME <= @noLaterThan AND (MISFIRE_INSTR = -1 OR (MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME >= @noEarlierThan))
               ORDER BY 
-                NEXT_FIRE_TIME ASC, PRIORITY DESC) WHERE rownum <= 1
-2022-01-21 14:39:25.523 +08:00 [DBG] Calling Execute on job 任务调度-测试.京东
-2022-01-21 14:39:25.523 +08:00 [DBG] Calling Execute on job 任务调度-测试.百度
-2022-01-21 14:39:25.523 +08:00 [DBG] Batch acquisition of 0 triggers
-2022-01-21 14:39:31.215 +08:00 [DBG] Trigger instruction : NoInstruction
-2022-01-21 14:39:31.227 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is desired by: 7094bbe4-1a84-439b-8d97-0f26af499dc0
-2022-01-21 14:39:31.227 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is being obtained: 7094bbe4-1a84-439b-8d97-0f26af499dc0
-2022-01-21 14:39:31.227 +08:00 [DBG] Lock 'TRIGGER_ACCESS' given to: 7094bbe4-1a84-439b-8d97-0f26af499dc0
-2022-01-21 14:39:31.233 +08:00 [DBG] Prepared SQL: DELETE FROM QRTZ_FIRED_TRIGGERS WHERE SCHED_NAME = @schedulerName AND ENTRY_ID = @triggerEntryId
-2022-01-21 14:39:31.240 +08:00 [DBG] Lock 'TRIGGER_ACCESS' returned by: 7094bbe4-1a84-439b-8d97-0f26af499dc0
-2022-01-21 14:39:31.527 +08:00 [DBG] Trigger instruction : NoInstruction
-2022-01-21 14:39:31.527 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is desired by: 0b15f8c2-af64-4f5c-a4f9-4e45315497cb
-2022-01-21 14:39:31.527 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is being obtained: 0b15f8c2-af64-4f5c-a4f9-4e45315497cb
-2022-01-21 14:39:31.527 +08:00 [DBG] Lock 'TRIGGER_ACCESS' given to: 0b15f8c2-af64-4f5c-a4f9-4e45315497cb
-2022-01-21 14:39:31.527 +08:00 [DBG] Prepared SQL: DELETE FROM QRTZ_FIRED_TRIGGERS WHERE SCHED_NAME = @schedulerName AND ENTRY_ID = @triggerEntryId
-2022-01-21 14:39:31.529 +08:00 [DBG] Lock 'TRIGGER_ACCESS' returned by: 0b15f8c2-af64-4f5c-a4f9-4e45315497cb
-2022-01-21 14:39:50.053 +08:00 [DBG] Prepared SQL: SELECT * FROM (SELECT
+                NEXT_FIRE_TIME ASC, PRIORITY DESC LIMIT 1
+2022-03-10 16:26:58.453 +08:00 [DBG] Lock 'TRIGGER_ACCESS' returned by: "5b5475c4-6008-4ede-8f96-02a86c81f678"
+2022-03-10 16:26:58.453 +08:00 [DBG] Batch acquisition of 0 triggers
+2022-03-10 16:27:08.290 +08:00 [DBG] Scanning for misfires...
+2022-03-10 16:27:08.290 +08:00 [DBG] Prepared SQL: SELECT COUNT(TRIGGER_NAME) FROM QRTZ_TRIGGERS WHERE SCHED_NAME = @schedulerName AND MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME < @nextFireTime AND TRIGGER_STATE = @state1
+2022-03-10 16:27:08.290 +08:00 [DBG] Found 0 triggers that missed their scheduled fire-time.
+2022-03-10 16:27:28.208 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is desired by: "5b5475c4-6008-4ede-8f96-02a86c81f678"
+2022-03-10 16:27:28.208 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_LOCKS SET LOCK_NAME = LOCK_NAME WHERE SCHED_NAME = @schedulerName AND LOCK_NAME = @lockName
+2022-03-10 16:27:28.208 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is being obtained: "5b5475c4-6008-4ede-8f96-02a86c81f678"
+2022-03-10 16:27:28.211 +08:00 [DBG] Lock 'TRIGGER_ACCESS' given to: "5b5475c4-6008-4ede-8f96-02a86c81f678"
+2022-03-10 16:27:28.211 +08:00 [DBG] Prepared SQL: SELECT
                 t.TRIGGER_NAME, t.TRIGGER_GROUP, jd.JOB_CLASS_NAME
               FROM
                 QRTZ_TRIGGERS t
@@ -222,5 +84,913 @@
               WHERE
                 t.SCHED_NAME = @schedulerName AND TRIGGER_STATE = @state AND NEXT_FIRE_TIME <= @noLaterThan AND (MISFIRE_INSTR = -1 OR (MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME >= @noEarlierThan))
               ORDER BY 
-                NEXT_FIRE_TIME ASC, PRIORITY DESC) WHERE rownum <= 1
-2022-01-21 14:39:50.055 +08:00 [DBG] Batch acquisition of 0 triggers
+                NEXT_FIRE_TIME ASC, PRIORITY DESC LIMIT 1
+2022-03-10 16:27:28.339 +08:00 [DBG] Lock 'TRIGGER_ACCESS' returned by: "5b5475c4-6008-4ede-8f96-02a86c81f678"
+2022-03-10 16:27:28.339 +08:00 [DBG] Batch acquisition of 0 triggers
+2022-03-10 16:27:56.196 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is desired by: "5b5475c4-6008-4ede-8f96-02a86c81f678"
+2022-03-10 16:27:56.196 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_LOCKS SET LOCK_NAME = LOCK_NAME WHERE SCHED_NAME = @schedulerName AND LOCK_NAME = @lockName
+2022-03-10 16:27:56.196 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is being obtained: "5b5475c4-6008-4ede-8f96-02a86c81f678"
+2022-03-10 16:27:56.198 +08:00 [DBG] Lock 'TRIGGER_ACCESS' given to: "5b5475c4-6008-4ede-8f96-02a86c81f678"
+2022-03-10 16:27:56.198 +08:00 [DBG] Prepared SQL: SELECT
+                t.TRIGGER_NAME, t.TRIGGER_GROUP, jd.JOB_CLASS_NAME
+              FROM
+                QRTZ_TRIGGERS t
+              JOIN
+                QRTZ_JOB_DETAILS jd ON (jd.SCHED_NAME = t.SCHED_NAME AND  jd.JOB_GROUP = t.JOB_GROUP AND jd.JOB_NAME = t.JOB_NAME) 
+              WHERE
+                t.SCHED_NAME = @schedulerName AND TRIGGER_STATE = @state AND NEXT_FIRE_TIME <= @noLaterThan AND (MISFIRE_INSTR = -1 OR (MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME >= @noEarlierThan))
+              ORDER BY 
+                NEXT_FIRE_TIME ASC, PRIORITY DESC LIMIT 1
+2022-03-10 16:27:56.260 +08:00 [DBG] Lock 'TRIGGER_ACCESS' returned by: "5b5475c4-6008-4ede-8f96-02a86c81f678"
+2022-03-10 16:27:56.260 +08:00 [DBG] Batch acquisition of 0 triggers
+2022-03-10 16:28:08.307 +08:00 [DBG] Scanning for misfires...
+2022-03-10 16:28:08.307 +08:00 [DBG] Prepared SQL: SELECT COUNT(TRIGGER_NAME) FROM QRTZ_TRIGGERS WHERE SCHED_NAME = @schedulerName AND MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME < @nextFireTime AND TRIGGER_STATE = @state1
+2022-03-10 16:28:08.307 +08:00 [DBG] Found 0 triggers that missed their scheduled fire-time.
+2022-03-10 16:28:19.920 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is desired by: "5b5475c4-6008-4ede-8f96-02a86c81f678"
+2022-03-10 16:28:19.920 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_LOCKS SET LOCK_NAME = LOCK_NAME WHERE SCHED_NAME = @schedulerName AND LOCK_NAME = @lockName
+2022-03-10 16:28:19.920 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is being obtained: "5b5475c4-6008-4ede-8f96-02a86c81f678"
+2022-03-10 16:28:19.921 +08:00 [DBG] Lock 'TRIGGER_ACCESS' given to: "5b5475c4-6008-4ede-8f96-02a86c81f678"
+2022-03-10 16:28:19.921 +08:00 [DBG] Prepared SQL: SELECT
+                t.TRIGGER_NAME, t.TRIGGER_GROUP, jd.JOB_CLASS_NAME
+              FROM
+                QRTZ_TRIGGERS t
+              JOIN
+                QRTZ_JOB_DETAILS jd ON (jd.SCHED_NAME = t.SCHED_NAME AND  jd.JOB_GROUP = t.JOB_GROUP AND jd.JOB_NAME = t.JOB_NAME) 
+              WHERE
+                t.SCHED_NAME = @schedulerName AND TRIGGER_STATE = @state AND NEXT_FIRE_TIME <= @noLaterThan AND (MISFIRE_INSTR = -1 OR (MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME >= @noEarlierThan))
+              ORDER BY 
+                NEXT_FIRE_TIME ASC, PRIORITY DESC LIMIT 1
+2022-03-10 16:28:20.046 +08:00 [DBG] Lock 'TRIGGER_ACCESS' returned by: "5b5475c4-6008-4ede-8f96-02a86c81f678"
+2022-03-10 16:28:20.046 +08:00 [DBG] Batch acquisition of 0 triggers
+2022-03-10 16:28:48.637 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is desired by: "5b5475c4-6008-4ede-8f96-02a86c81f678"
+2022-03-10 16:28:48.637 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_LOCKS SET LOCK_NAME = LOCK_NAME WHERE SCHED_NAME = @schedulerName AND LOCK_NAME = @lockName
+2022-03-10 16:28:48.637 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is being obtained: "5b5475c4-6008-4ede-8f96-02a86c81f678"
+2022-03-10 16:28:48.640 +08:00 [DBG] Lock 'TRIGGER_ACCESS' given to: "5b5475c4-6008-4ede-8f96-02a86c81f678"
+2022-03-10 16:28:48.640 +08:00 [DBG] Prepared SQL: SELECT
+                t.TRIGGER_NAME, t.TRIGGER_GROUP, jd.JOB_CLASS_NAME
+              FROM
+                QRTZ_TRIGGERS t
+              JOIN
+                QRTZ_JOB_DETAILS jd ON (jd.SCHED_NAME = t.SCHED_NAME AND  jd.JOB_GROUP = t.JOB_GROUP AND jd.JOB_NAME = t.JOB_NAME) 
+              WHERE
+                t.SCHED_NAME = @schedulerName AND TRIGGER_STATE = @state AND NEXT_FIRE_TIME <= @noLaterThan AND (MISFIRE_INSTR = -1 OR (MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME >= @noEarlierThan))
+              ORDER BY 
+                NEXT_FIRE_TIME ASC, PRIORITY DESC LIMIT 1
+2022-03-10 16:28:48.698 +08:00 [DBG] Lock 'TRIGGER_ACCESS' returned by: "5b5475c4-6008-4ede-8f96-02a86c81f678"
+2022-03-10 16:28:48.698 +08:00 [DBG] Batch acquisition of 0 triggers
+2022-03-10 16:29:08.335 +08:00 [DBG] Scanning for misfires...
+2022-03-10 16:29:08.335 +08:00 [DBG] Prepared SQL: SELECT COUNT(TRIGGER_NAME) FROM QRTZ_TRIGGERS WHERE SCHED_NAME = @schedulerName AND MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME < @nextFireTime AND TRIGGER_STATE = @state1
+2022-03-10 16:29:08.335 +08:00 [DBG] Found 0 triggers that missed their scheduled fire-time.
+2022-03-10 16:29:16.775 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is desired by: "5b5475c4-6008-4ede-8f96-02a86c81f678"
+2022-03-10 16:29:16.775 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_LOCKS SET LOCK_NAME = LOCK_NAME WHERE SCHED_NAME = @schedulerName AND LOCK_NAME = @lockName
+2022-03-10 16:29:16.775 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is being obtained: "5b5475c4-6008-4ede-8f96-02a86c81f678"
+2022-03-10 16:29:16.778 +08:00 [DBG] Lock 'TRIGGER_ACCESS' given to: "5b5475c4-6008-4ede-8f96-02a86c81f678"
+2022-03-10 16:29:16.778 +08:00 [DBG] Prepared SQL: SELECT
+                t.TRIGGER_NAME, t.TRIGGER_GROUP, jd.JOB_CLASS_NAME
+              FROM
+                QRTZ_TRIGGERS t
+              JOIN
+                QRTZ_JOB_DETAILS jd ON (jd.SCHED_NAME = t.SCHED_NAME AND  jd.JOB_GROUP = t.JOB_GROUP AND jd.JOB_NAME = t.JOB_NAME) 
+              WHERE
+                t.SCHED_NAME = @schedulerName AND TRIGGER_STATE = @state AND NEXT_FIRE_TIME <= @noLaterThan AND (MISFIRE_INSTR = -1 OR (MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME >= @noEarlierThan))
+              ORDER BY 
+                NEXT_FIRE_TIME ASC, PRIORITY DESC LIMIT 1
+2022-03-10 16:29:16.905 +08:00 [DBG] Lock 'TRIGGER_ACCESS' returned by: "5b5475c4-6008-4ede-8f96-02a86c81f678"
+2022-03-10 16:29:16.905 +08:00 [DBG] Batch acquisition of 0 triggers
+2022-03-10 16:29:41.008 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is desired by: "5b5475c4-6008-4ede-8f96-02a86c81f678"
+2022-03-10 16:29:41.008 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_LOCKS SET LOCK_NAME = LOCK_NAME WHERE SCHED_NAME = @schedulerName AND LOCK_NAME = @lockName
+2022-03-10 16:29:41.008 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is being obtained: "5b5475c4-6008-4ede-8f96-02a86c81f678"
+2022-03-10 16:29:41.010 +08:00 [DBG] Lock 'TRIGGER_ACCESS' given to: "5b5475c4-6008-4ede-8f96-02a86c81f678"
+2022-03-10 16:29:41.010 +08:00 [DBG] Prepared SQL: SELECT
+                t.TRIGGER_NAME, t.TRIGGER_GROUP, jd.JOB_CLASS_NAME
+              FROM
+                QRTZ_TRIGGERS t
+              JOIN
+                QRTZ_JOB_DETAILS jd ON (jd.SCHED_NAME = t.SCHED_NAME AND  jd.JOB_GROUP = t.JOB_GROUP AND jd.JOB_NAME = t.JOB_NAME) 
+              WHERE
+                t.SCHED_NAME = @schedulerName AND TRIGGER_STATE = @state AND NEXT_FIRE_TIME <= @noLaterThan AND (MISFIRE_INSTR = -1 OR (MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME >= @noEarlierThan))
+              ORDER BY 
+                NEXT_FIRE_TIME ASC, PRIORITY DESC LIMIT 1
+2022-03-10 16:29:41.064 +08:00 [DBG] Lock 'TRIGGER_ACCESS' returned by: "5b5475c4-6008-4ede-8f96-02a86c81f678"
+2022-03-10 16:29:41.064 +08:00 [DBG] Batch acquisition of 0 triggers
+2022-03-10 16:30:08.346 +08:00 [DBG] Scanning for misfires...
+2022-03-10 16:30:08.346 +08:00 [DBG] Prepared SQL: SELECT COUNT(TRIGGER_NAME) FROM QRTZ_TRIGGERS WHERE SCHED_NAME = @schedulerName AND MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME < @nextFireTime AND TRIGGER_STATE = @state1
+2022-03-10 16:30:08.346 +08:00 [DBG] Found 0 triggers that missed their scheduled fire-time.
+2022-03-10 16:30:09.601 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is desired by: "5b5475c4-6008-4ede-8f96-02a86c81f678"
+2022-03-10 16:30:09.601 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_LOCKS SET LOCK_NAME = LOCK_NAME WHERE SCHED_NAME = @schedulerName AND LOCK_NAME = @lockName
+2022-03-10 16:30:09.601 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is being obtained: "5b5475c4-6008-4ede-8f96-02a86c81f678"
+2022-03-10 16:30:09.603 +08:00 [DBG] Lock 'TRIGGER_ACCESS' given to: "5b5475c4-6008-4ede-8f96-02a86c81f678"
+2022-03-10 16:30:09.603 +08:00 [DBG] Prepared SQL: SELECT
+                t.TRIGGER_NAME, t.TRIGGER_GROUP, jd.JOB_CLASS_NAME
+              FROM
+                QRTZ_TRIGGERS t
+              JOIN
+                QRTZ_JOB_DETAILS jd ON (jd.SCHED_NAME = t.SCHED_NAME AND  jd.JOB_GROUP = t.JOB_GROUP AND jd.JOB_NAME = t.JOB_NAME) 
+              WHERE
+                t.SCHED_NAME = @schedulerName AND TRIGGER_STATE = @state AND NEXT_FIRE_TIME <= @noLaterThan AND (MISFIRE_INSTR = -1 OR (MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME >= @noEarlierThan))
+              ORDER BY 
+                NEXT_FIRE_TIME ASC, PRIORITY DESC LIMIT 1
+2022-03-10 16:30:09.665 +08:00 [DBG] Lock 'TRIGGER_ACCESS' returned by: "5b5475c4-6008-4ede-8f96-02a86c81f678"
+2022-03-10 16:30:09.665 +08:00 [DBG] Batch acquisition of 0 triggers
+2022-03-10 16:30:34.642 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is desired by: "5b5475c4-6008-4ede-8f96-02a86c81f678"
+2022-03-10 16:30:34.643 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_LOCKS SET LOCK_NAME = LOCK_NAME WHERE SCHED_NAME = @schedulerName AND LOCK_NAME = @lockName
+2022-03-10 16:30:34.643 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is being obtained: "5b5475c4-6008-4ede-8f96-02a86c81f678"
+2022-03-10 16:30:34.645 +08:00 [DBG] Lock 'TRIGGER_ACCESS' given to: "5b5475c4-6008-4ede-8f96-02a86c81f678"
+2022-03-10 16:30:34.645 +08:00 [DBG] Prepared SQL: SELECT
+                t.TRIGGER_NAME, t.TRIGGER_GROUP, jd.JOB_CLASS_NAME
+              FROM
+                QRTZ_TRIGGERS t
+              JOIN
+                QRTZ_JOB_DETAILS jd ON (jd.SCHED_NAME = t.SCHED_NAME AND  jd.JOB_GROUP = t.JOB_GROUP AND jd.JOB_NAME = t.JOB_NAME) 
+              WHERE
+                t.SCHED_NAME = @schedulerName AND TRIGGER_STATE = @state AND NEXT_FIRE_TIME <= @noLaterThan AND (MISFIRE_INSTR = -1 OR (MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME >= @noEarlierThan))
+              ORDER BY 
+                NEXT_FIRE_TIME ASC, PRIORITY DESC LIMIT 1
+2022-03-10 16:30:34.700 +08:00 [DBG] Lock 'TRIGGER_ACCESS' returned by: "5b5475c4-6008-4ede-8f96-02a86c81f678"
+2022-03-10 16:30:34.700 +08:00 [DBG] Batch acquisition of 0 triggers
+2022-03-10 16:31:04.424 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is desired by: "5b5475c4-6008-4ede-8f96-02a86c81f678"
+2022-03-10 16:31:04.424 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_LOCKS SET LOCK_NAME = LOCK_NAME WHERE SCHED_NAME = @schedulerName AND LOCK_NAME = @lockName
+2022-03-10 16:31:04.424 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is being obtained: "5b5475c4-6008-4ede-8f96-02a86c81f678"
+2022-03-10 16:31:04.426 +08:00 [DBG] Lock 'TRIGGER_ACCESS' given to: "5b5475c4-6008-4ede-8f96-02a86c81f678"
+2022-03-10 16:31:04.427 +08:00 [DBG] Prepared SQL: SELECT
+                t.TRIGGER_NAME, t.TRIGGER_GROUP, jd.JOB_CLASS_NAME
+              FROM
+                QRTZ_TRIGGERS t
+              JOIN
+                QRTZ_JOB_DETAILS jd ON (jd.SCHED_NAME = t.SCHED_NAME AND  jd.JOB_GROUP = t.JOB_GROUP AND jd.JOB_NAME = t.JOB_NAME) 
+              WHERE
+                t.SCHED_NAME = @schedulerName AND TRIGGER_STATE = @state AND NEXT_FIRE_TIME <= @noLaterThan AND (MISFIRE_INSTR = -1 OR (MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME >= @noEarlierThan))
+              ORDER BY 
+                NEXT_FIRE_TIME ASC, PRIORITY DESC LIMIT 1
+2022-03-10 16:31:04.562 +08:00 [DBG] Lock 'TRIGGER_ACCESS' returned by: "5b5475c4-6008-4ede-8f96-02a86c81f678"
+2022-03-10 16:31:04.562 +08:00 [DBG] Batch acquisition of 0 triggers
+2022-03-10 16:31:08.354 +08:00 [DBG] Scanning for misfires...
+2022-03-10 16:31:08.355 +08:00 [DBG] Prepared SQL: SELECT COUNT(TRIGGER_NAME) FROM QRTZ_TRIGGERS WHERE SCHED_NAME = @schedulerName AND MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME < @nextFireTime AND TRIGGER_STATE = @state1
+2022-03-10 16:31:08.355 +08:00 [DBG] Found 0 triggers that missed their scheduled fire-time.
+2022-03-10 16:51:26.874 +08:00 [DBG] TaskSchedulingThreadPool configured with max concurrency of 10 and TaskScheduler ThreadPoolTaskScheduler.
+2022-03-10 16:51:26.914 +08:00 [DBG] Adding TriggerPersistenceDelegate of type: Quartz.Impl.AdoJobStore.SimpleTriggerPersistenceDelegate
+2022-03-10 16:51:26.915 +08:00 [DBG] Adding TriggerPersistenceDelegate of type: Quartz.Impl.AdoJobStore.CronTriggerPersistenceDelegate
+2022-03-10 16:51:26.915 +08:00 [DBG] Adding TriggerPersistenceDelegate of type: Quartz.Impl.AdoJobStore.CalendarIntervalTriggerPersistenceDelegate
+2022-03-10 16:51:26.915 +08:00 [DBG] Adding TriggerPersistenceDelegate of type: Quartz.Impl.AdoJobStore.DailyTimeIntervalTriggerPersistenceDelegate
+2022-03-10 16:51:26.937 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is desired by: "f45a628a-2a05-43c5-933f-37c49da6b470"
+2022-03-10 16:51:26.944 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_LOCKS SET LOCK_NAME = LOCK_NAME WHERE SCHED_NAME = @schedulerName AND LOCK_NAME = @lockName
+2022-03-10 16:51:26.945 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is being obtained: "f45a628a-2a05-43c5-933f-37c49da6b470"
+2022-03-10 16:51:26.949 +08:00 [DBG] Inserting new lock row for lock: 'TRIGGER_ACCESS' being obtained: "f45a628a-2a05-43c5-933f-37c49da6b470"
+2022-03-10 16:51:26.949 +08:00 [DBG] Prepared SQL: INSERT INTO QRTZ_LOCKS(SCHED_NAME, LOCK_NAME) VALUES (@schedulerName, @lockName)
+2022-03-10 16:51:26.964 +08:00 [DBG] Lock 'TRIGGER_ACCESS' given to: "f45a628a-2a05-43c5-933f-37c49da6b470"
+2022-03-10 16:51:26.977 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_TRIGGERS SET TRIGGER_STATE = @newState WHERE SCHED_NAME = @schedulerName AND (TRIGGER_STATE = @oldState1 OR TRIGGER_STATE = @oldState2)
+2022-03-10 16:51:26.978 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_TRIGGERS SET TRIGGER_STATE = @newState WHERE SCHED_NAME = @schedulerName AND (TRIGGER_STATE = @oldState1 OR TRIGGER_STATE = @oldState2)
+2022-03-10 16:51:26.985 +08:00 [DBG] Prepared SQL: SELECT TRIGGER_NAME, TRIGGER_GROUP FROM QRTZ_TRIGGERS WHERE SCHED_NAME = @schedulerName AND MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME < @nextFireTime AND TRIGGER_STATE = @state1 ORDER BY NEXT_FIRE_TIME ASC, PRIORITY DESC
+2022-03-10 16:51:26.986 +08:00 [DBG] Found 0 triggers that missed their scheduled fire-time.
+2022-03-10 16:51:26.993 +08:00 [DBG] Prepared SQL: SELECT * FROM QRTZ_FIRED_TRIGGERS WHERE SCHED_NAME = @schedulerName AND INSTANCE_NAME = @instanceName AND REQUESTS_RECOVERY = @requestsRecovery
+2022-03-10 16:51:26.996 +08:00 [DBG] Prepared SQL: SELECT TRIGGER_NAME, TRIGGER_GROUP FROM QRTZ_TRIGGERS WHERE SCHED_NAME = @schedulerName AND TRIGGER_STATE = @state
+2022-03-10 16:51:26.997 +08:00 [DBG] Prepared SQL: DELETE FROM QRTZ_FIRED_TRIGGERS WHERE SCHED_NAME = @schedulerName
+2022-03-10 16:51:27.131 +08:00 [DBG] Lock 'TRIGGER_ACCESS' returned by: "f45a628a-2a05-43c5-933f-37c49da6b470"
+2022-03-10 16:51:27.159 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is desired by: "6fffeba4-4e88-425a-b4d0-807f72dd5cd4"
+2022-03-10 16:51:27.159 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_LOCKS SET LOCK_NAME = LOCK_NAME WHERE SCHED_NAME = @schedulerName AND LOCK_NAME = @lockName
+2022-03-10 16:51:27.159 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is being obtained: "6fffeba4-4e88-425a-b4d0-807f72dd5cd4"
+2022-03-10 16:51:27.161 +08:00 [DBG] Scanning for misfires...
+2022-03-10 16:51:27.162 +08:00 [DBG] Lock 'TRIGGER_ACCESS' given to: "6fffeba4-4e88-425a-b4d0-807f72dd5cd4"
+2022-03-10 16:51:27.198 +08:00 [DBG] Prepared SQL: SELECT
+                t.TRIGGER_NAME, t.TRIGGER_GROUP, jd.JOB_CLASS_NAME
+              FROM
+                QRTZ_TRIGGERS t
+              JOIN
+                QRTZ_JOB_DETAILS jd ON (jd.SCHED_NAME = t.SCHED_NAME AND  jd.JOB_GROUP = t.JOB_GROUP AND jd.JOB_NAME = t.JOB_NAME) 
+              WHERE
+                t.SCHED_NAME = @schedulerName AND TRIGGER_STATE = @state AND NEXT_FIRE_TIME <= @noLaterThan AND (MISFIRE_INSTR = -1 OR (MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME >= @noEarlierThan))
+              ORDER BY 
+                NEXT_FIRE_TIME ASC, PRIORITY DESC LIMIT 1
+2022-03-10 16:51:27.248 +08:00 [DBG] Lock 'TRIGGER_ACCESS' returned by: "6fffeba4-4e88-425a-b4d0-807f72dd5cd4"
+2022-03-10 16:51:27.248 +08:00 [DBG] Batch acquisition of 0 triggers
+2022-03-10 16:51:27.355 +08:00 [DBG] Prepared SQL: SELECT COUNT(TRIGGER_NAME) FROM QRTZ_TRIGGERS WHERE SCHED_NAME = @schedulerName AND MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME < @nextFireTime AND TRIGGER_STATE = @state1
+2022-03-10 16:51:27.356 +08:00 [DBG] Found 0 triggers that missed their scheduled fire-time.
+2022-03-10 17:04:40.970 +08:00 [DBG] TaskSchedulingThreadPool configured with max concurrency of 10 and TaskScheduler ThreadPoolTaskScheduler.
+2022-03-10 17:04:41.018 +08:00 [DBG] Adding TriggerPersistenceDelegate of type: Quartz.Impl.AdoJobStore.SimpleTriggerPersistenceDelegate
+2022-03-10 17:04:41.018 +08:00 [DBG] Adding TriggerPersistenceDelegate of type: Quartz.Impl.AdoJobStore.CronTriggerPersistenceDelegate
+2022-03-10 17:04:41.018 +08:00 [DBG] Adding TriggerPersistenceDelegate of type: Quartz.Impl.AdoJobStore.CalendarIntervalTriggerPersistenceDelegate
+2022-03-10 17:04:41.019 +08:00 [DBG] Adding TriggerPersistenceDelegate of type: Quartz.Impl.AdoJobStore.DailyTimeIntervalTriggerPersistenceDelegate
+2022-03-10 17:04:41.040 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is desired by: "780286ae-b97d-48a3-9a93-6dd0e9c81ec0"
+2022-03-10 17:04:41.048 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_LOCKS SET LOCK_NAME = LOCK_NAME WHERE SCHED_NAME = @schedulerName AND LOCK_NAME = @lockName
+2022-03-10 17:04:41.049 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is being obtained: "780286ae-b97d-48a3-9a93-6dd0e9c81ec0"
+2022-03-10 17:04:41.064 +08:00 [DBG] Lock 'TRIGGER_ACCESS' given to: "780286ae-b97d-48a3-9a93-6dd0e9c81ec0"
+2022-03-10 17:04:41.077 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_TRIGGERS SET TRIGGER_STATE = @newState WHERE SCHED_NAME = @schedulerName AND (TRIGGER_STATE = @oldState1 OR TRIGGER_STATE = @oldState2)
+2022-03-10 17:04:41.078 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_TRIGGERS SET TRIGGER_STATE = @newState WHERE SCHED_NAME = @schedulerName AND (TRIGGER_STATE = @oldState1 OR TRIGGER_STATE = @oldState2)
+2022-03-10 17:04:41.086 +08:00 [DBG] Prepared SQL: SELECT TRIGGER_NAME, TRIGGER_GROUP FROM QRTZ_TRIGGERS WHERE SCHED_NAME = @schedulerName AND MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME < @nextFireTime AND TRIGGER_STATE = @state1 ORDER BY NEXT_FIRE_TIME ASC, PRIORITY DESC
+2022-03-10 17:04:41.087 +08:00 [DBG] Found 0 triggers that missed their scheduled fire-time.
+2022-03-10 17:04:41.095 +08:00 [DBG] Prepared SQL: SELECT * FROM QRTZ_FIRED_TRIGGERS WHERE SCHED_NAME = @schedulerName AND INSTANCE_NAME = @instanceName AND REQUESTS_RECOVERY = @requestsRecovery
+2022-03-10 17:04:41.098 +08:00 [DBG] Prepared SQL: SELECT TRIGGER_NAME, TRIGGER_GROUP FROM QRTZ_TRIGGERS WHERE SCHED_NAME = @schedulerName AND TRIGGER_STATE = @state
+2022-03-10 17:04:41.099 +08:00 [DBG] Prepared SQL: DELETE FROM QRTZ_FIRED_TRIGGERS WHERE SCHED_NAME = @schedulerName
+2022-03-10 17:04:41.160 +08:00 [DBG] Lock 'TRIGGER_ACCESS' returned by: "780286ae-b97d-48a3-9a93-6dd0e9c81ec0"
+2022-03-10 17:04:41.192 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is desired by: "814e2251-347e-48b4-b93f-7ae1c116f17f"
+2022-03-10 17:04:41.192 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_LOCKS SET LOCK_NAME = LOCK_NAME WHERE SCHED_NAME = @schedulerName AND LOCK_NAME = @lockName
+2022-03-10 17:04:41.192 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is being obtained: "814e2251-347e-48b4-b93f-7ae1c116f17f"
+2022-03-10 17:04:41.194 +08:00 [DBG] Lock 'TRIGGER_ACCESS' given to: "814e2251-347e-48b4-b93f-7ae1c116f17f"
+2022-03-10 17:04:41.194 +08:00 [DBG] Scanning for misfires...
+2022-03-10 17:04:41.237 +08:00 [DBG] Prepared SQL: SELECT
+                t.TRIGGER_NAME, t.TRIGGER_GROUP, jd.JOB_CLASS_NAME
+              FROM
+                QRTZ_TRIGGERS t
+              JOIN
+                QRTZ_JOB_DETAILS jd ON (jd.SCHED_NAME = t.SCHED_NAME AND  jd.JOB_GROUP = t.JOB_GROUP AND jd.JOB_NAME = t.JOB_NAME) 
+              WHERE
+                t.SCHED_NAME = @schedulerName AND TRIGGER_STATE = @state AND NEXT_FIRE_TIME <= @noLaterThan AND (MISFIRE_INSTR = -1 OR (MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME >= @noEarlierThan))
+              ORDER BY 
+                NEXT_FIRE_TIME ASC, PRIORITY DESC LIMIT 1
+2022-03-10 17:04:41.647 +08:00 [DBG] Lock 'TRIGGER_ACCESS' returned by: "814e2251-347e-48b4-b93f-7ae1c116f17f"
+2022-03-10 17:04:41.647 +08:00 [DBG] Batch acquisition of 0 triggers
+2022-03-10 17:04:41.757 +08:00 [DBG] Prepared SQL: SELECT COUNT(TRIGGER_NAME) FROM QRTZ_TRIGGERS WHERE SCHED_NAME = @schedulerName AND MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME < @nextFireTime AND TRIGGER_STATE = @state1
+2022-03-10 17:04:41.759 +08:00 [DBG] Found 0 triggers that missed their scheduled fire-time.
+2022-03-10 17:05:11.157 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is desired by: "814e2251-347e-48b4-b93f-7ae1c116f17f"
+2022-03-10 17:05:11.157 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_LOCKS SET LOCK_NAME = LOCK_NAME WHERE SCHED_NAME = @schedulerName AND LOCK_NAME = @lockName
+2022-03-10 17:05:11.157 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is being obtained: "814e2251-347e-48b4-b93f-7ae1c116f17f"
+2022-03-10 17:05:11.160 +08:00 [DBG] Lock 'TRIGGER_ACCESS' given to: "814e2251-347e-48b4-b93f-7ae1c116f17f"
+2022-03-10 17:05:11.160 +08:00 [DBG] Prepared SQL: SELECT
+                t.TRIGGER_NAME, t.TRIGGER_GROUP, jd.JOB_CLASS_NAME
+              FROM
+                QRTZ_TRIGGERS t
+              JOIN
+                QRTZ_JOB_DETAILS jd ON (jd.SCHED_NAME = t.SCHED_NAME AND  jd.JOB_GROUP = t.JOB_GROUP AND jd.JOB_NAME = t.JOB_NAME) 
+              WHERE
+                t.SCHED_NAME = @schedulerName AND TRIGGER_STATE = @state AND NEXT_FIRE_TIME <= @noLaterThan AND (MISFIRE_INSTR = -1 OR (MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME >= @noEarlierThan))
+              ORDER BY 
+                NEXT_FIRE_TIME ASC, PRIORITY DESC LIMIT 1
+2022-03-10 17:05:11.520 +08:00 [DBG] Lock 'TRIGGER_ACCESS' returned by: "814e2251-347e-48b4-b93f-7ae1c116f17f"
+2022-03-10 17:05:11.520 +08:00 [DBG] Batch acquisition of 0 triggers
+2022-03-10 17:05:46.754 +08:00 [DBG] TaskSchedulingThreadPool configured with max concurrency of 10 and TaskScheduler ThreadPoolTaskScheduler.
+2022-03-10 17:05:46.807 +08:00 [DBG] Adding TriggerPersistenceDelegate of type: Quartz.Impl.AdoJobStore.SimpleTriggerPersistenceDelegate
+2022-03-10 17:05:46.808 +08:00 [DBG] Adding TriggerPersistenceDelegate of type: Quartz.Impl.AdoJobStore.CronTriggerPersistenceDelegate
+2022-03-10 17:05:46.808 +08:00 [DBG] Adding TriggerPersistenceDelegate of type: Quartz.Impl.AdoJobStore.CalendarIntervalTriggerPersistenceDelegate
+2022-03-10 17:05:46.809 +08:00 [DBG] Adding TriggerPersistenceDelegate of type: Quartz.Impl.AdoJobStore.DailyTimeIntervalTriggerPersistenceDelegate
+2022-03-10 17:05:46.832 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is desired by: "2e8a857d-a792-4c55-9cd9-4b7c1842851d"
+2022-03-10 17:05:46.840 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_LOCKS SET LOCK_NAME = LOCK_NAME WHERE SCHED_NAME = @schedulerName AND LOCK_NAME = @lockName
+2022-03-10 17:05:46.841 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is being obtained: "2e8a857d-a792-4c55-9cd9-4b7c1842851d"
+2022-03-10 17:05:46.911 +08:00 [DBG] Lock 'TRIGGER_ACCESS' given to: "2e8a857d-a792-4c55-9cd9-4b7c1842851d"
+2022-03-10 17:05:46.923 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_TRIGGERS SET TRIGGER_STATE = @newState WHERE SCHED_NAME = @schedulerName AND (TRIGGER_STATE = @oldState1 OR TRIGGER_STATE = @oldState2)
+2022-03-10 17:05:46.923 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_TRIGGERS SET TRIGGER_STATE = @newState WHERE SCHED_NAME = @schedulerName AND (TRIGGER_STATE = @oldState1 OR TRIGGER_STATE = @oldState2)
+2022-03-10 17:05:46.933 +08:00 [DBG] Prepared SQL: SELECT TRIGGER_NAME, TRIGGER_GROUP FROM QRTZ_TRIGGERS WHERE SCHED_NAME = @schedulerName AND MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME < @nextFireTime AND TRIGGER_STATE = @state1 ORDER BY NEXT_FIRE_TIME ASC, PRIORITY DESC
+2022-03-10 17:05:46.934 +08:00 [DBG] Found 0 triggers that missed their scheduled fire-time.
+2022-03-10 17:05:46.942 +08:00 [DBG] Prepared SQL: SELECT * FROM QRTZ_FIRED_TRIGGERS WHERE SCHED_NAME = @schedulerName AND INSTANCE_NAME = @instanceName AND REQUESTS_RECOVERY = @requestsRecovery
+2022-03-10 17:05:46.945 +08:00 [DBG] Prepared SQL: SELECT TRIGGER_NAME, TRIGGER_GROUP FROM QRTZ_TRIGGERS WHERE SCHED_NAME = @schedulerName AND TRIGGER_STATE = @state
+2022-03-10 17:05:46.947 +08:00 [DBG] Prepared SQL: DELETE FROM QRTZ_FIRED_TRIGGERS WHERE SCHED_NAME = @schedulerName
+2022-03-10 17:05:47.326 +08:00 [DBG] Lock 'TRIGGER_ACCESS' returned by: "2e8a857d-a792-4c55-9cd9-4b7c1842851d"
+2022-03-10 17:05:47.364 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is desired by: "d4133984-96e9-483e-9520-cf7de12a280a"
+2022-03-10 17:05:47.364 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_LOCKS SET LOCK_NAME = LOCK_NAME WHERE SCHED_NAME = @schedulerName AND LOCK_NAME = @lockName
+2022-03-10 17:05:47.364 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is being obtained: "d4133984-96e9-483e-9520-cf7de12a280a"
+2022-03-10 17:05:47.366 +08:00 [DBG] Scanning for misfires...
+2022-03-10 17:05:47.378 +08:00 [DBG] Lock 'TRIGGER_ACCESS' given to: "d4133984-96e9-483e-9520-cf7de12a280a"
+2022-03-10 17:05:47.424 +08:00 [DBG] Prepared SQL: SELECT
+                t.TRIGGER_NAME, t.TRIGGER_GROUP, jd.JOB_CLASS_NAME
+              FROM
+                QRTZ_TRIGGERS t
+              JOIN
+                QRTZ_JOB_DETAILS jd ON (jd.SCHED_NAME = t.SCHED_NAME AND  jd.JOB_GROUP = t.JOB_GROUP AND jd.JOB_NAME = t.JOB_NAME) 
+              WHERE
+                t.SCHED_NAME = @schedulerName AND TRIGGER_STATE = @state AND NEXT_FIRE_TIME <= @noLaterThan AND (MISFIRE_INSTR = -1 OR (MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME >= @noEarlierThan))
+              ORDER BY 
+                NEXT_FIRE_TIME ASC, PRIORITY DESC LIMIT 1
+2022-03-10 17:05:47.474 +08:00 [DBG] Lock 'TRIGGER_ACCESS' returned by: "d4133984-96e9-483e-9520-cf7de12a280a"
+2022-03-10 17:05:47.474 +08:00 [DBG] Batch acquisition of 0 triggers
+2022-03-10 17:05:47.563 +08:00 [DBG] Prepared SQL: SELECT COUNT(TRIGGER_NAME) FROM QRTZ_TRIGGERS WHERE SCHED_NAME = @schedulerName AND MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME < @nextFireTime AND TRIGGER_STATE = @state1
+2022-03-10 17:05:47.572 +08:00 [DBG] Found 0 triggers that missed their scheduled fire-time.
+2022-03-10 17:06:12.240 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is desired by: "d4133984-96e9-483e-9520-cf7de12a280a"
+2022-03-10 17:06:12.240 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_LOCKS SET LOCK_NAME = LOCK_NAME WHERE SCHED_NAME = @schedulerName AND LOCK_NAME = @lockName
+2022-03-10 17:06:12.240 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is being obtained: "d4133984-96e9-483e-9520-cf7de12a280a"
+2022-03-10 17:06:12.247 +08:00 [DBG] Lock 'TRIGGER_ACCESS' given to: "d4133984-96e9-483e-9520-cf7de12a280a"
+2022-03-10 17:06:12.247 +08:00 [DBG] Prepared SQL: SELECT
+                t.TRIGGER_NAME, t.TRIGGER_GROUP, jd.JOB_CLASS_NAME
+              FROM
+                QRTZ_TRIGGERS t
+              JOIN
+                QRTZ_JOB_DETAILS jd ON (jd.SCHED_NAME = t.SCHED_NAME AND  jd.JOB_GROUP = t.JOB_GROUP AND jd.JOB_NAME = t.JOB_NAME) 
+              WHERE
+                t.SCHED_NAME = @schedulerName AND TRIGGER_STATE = @state AND NEXT_FIRE_TIME <= @noLaterThan AND (MISFIRE_INSTR = -1 OR (MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME >= @noEarlierThan))
+              ORDER BY 
+                NEXT_FIRE_TIME ASC, PRIORITY DESC LIMIT 1
+2022-03-10 17:06:12.306 +08:00 [DBG] Lock 'TRIGGER_ACCESS' returned by: "d4133984-96e9-483e-9520-cf7de12a280a"
+2022-03-10 17:06:12.306 +08:00 [DBG] Batch acquisition of 0 triggers
+2022-03-10 17:17:42.969 +08:00 [DBG] TaskSchedulingThreadPool configured with max concurrency of 10 and TaskScheduler ThreadPoolTaskScheduler.
+2022-03-10 17:17:43.039 +08:00 [DBG] Adding TriggerPersistenceDelegate of type: Quartz.Impl.AdoJobStore.SimpleTriggerPersistenceDelegate
+2022-03-10 17:17:43.040 +08:00 [DBG] Adding TriggerPersistenceDelegate of type: Quartz.Impl.AdoJobStore.CronTriggerPersistenceDelegate
+2022-03-10 17:17:43.040 +08:00 [DBG] Adding TriggerPersistenceDelegate of type: Quartz.Impl.AdoJobStore.CalendarIntervalTriggerPersistenceDelegate
+2022-03-10 17:17:43.041 +08:00 [DBG] Adding TriggerPersistenceDelegate of type: Quartz.Impl.AdoJobStore.DailyTimeIntervalTriggerPersistenceDelegate
+2022-03-10 17:17:43.074 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is desired by: "da1bbe80-9ac4-4519-aebb-826ebdb44401"
+2022-03-10 17:17:43.083 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_LOCKS SET LOCK_NAME = LOCK_NAME WHERE SCHED_NAME = @schedulerName AND LOCK_NAME = @lockName
+2022-03-10 17:17:43.085 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is being obtained: "da1bbe80-9ac4-4519-aebb-826ebdb44401"
+2022-03-10 17:17:43.092 +08:00 [DBG] Lock 'TRIGGER_ACCESS' given to: "da1bbe80-9ac4-4519-aebb-826ebdb44401"
+2022-03-10 17:17:43.106 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_TRIGGERS SET TRIGGER_STATE = @newState WHERE SCHED_NAME = @schedulerName AND (TRIGGER_STATE = @oldState1 OR TRIGGER_STATE = @oldState2)
+2022-03-10 17:17:43.106 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_TRIGGERS SET TRIGGER_STATE = @newState WHERE SCHED_NAME = @schedulerName AND (TRIGGER_STATE = @oldState1 OR TRIGGER_STATE = @oldState2)
+2022-03-10 17:17:43.117 +08:00 [DBG] Prepared SQL: SELECT TRIGGER_NAME, TRIGGER_GROUP FROM QRTZ_TRIGGERS WHERE SCHED_NAME = @schedulerName AND MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME < @nextFireTime AND TRIGGER_STATE = @state1 ORDER BY NEXT_FIRE_TIME ASC, PRIORITY DESC
+2022-03-10 17:17:43.118 +08:00 [DBG] Found 0 triggers that missed their scheduled fire-time.
+2022-03-10 17:17:43.127 +08:00 [DBG] Prepared SQL: SELECT * FROM QRTZ_FIRED_TRIGGERS WHERE SCHED_NAME = @schedulerName AND INSTANCE_NAME = @instanceName AND REQUESTS_RECOVERY = @requestsRecovery
+2022-03-10 17:17:43.131 +08:00 [DBG] Prepared SQL: SELECT TRIGGER_NAME, TRIGGER_GROUP FROM QRTZ_TRIGGERS WHERE SCHED_NAME = @schedulerName AND TRIGGER_STATE = @state
+2022-03-10 17:17:43.132 +08:00 [DBG] Prepared SQL: DELETE FROM QRTZ_FIRED_TRIGGERS WHERE SCHED_NAME = @schedulerName
+2022-03-10 17:17:43.192 +08:00 [DBG] Lock 'TRIGGER_ACCESS' returned by: "da1bbe80-9ac4-4519-aebb-826ebdb44401"
+2022-03-10 17:17:43.232 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is desired by: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:17:43.233 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_LOCKS SET LOCK_NAME = LOCK_NAME WHERE SCHED_NAME = @schedulerName AND LOCK_NAME = @lockName
+2022-03-10 17:17:43.233 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is being obtained: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:17:43.237 +08:00 [DBG] Scanning for misfires...
+2022-03-10 17:17:43.255 +08:00 [DBG] Lock 'TRIGGER_ACCESS' given to: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:17:43.317 +08:00 [DBG] Prepared SQL: SELECT
+                t.TRIGGER_NAME, t.TRIGGER_GROUP, jd.JOB_CLASS_NAME
+              FROM
+                QRTZ_TRIGGERS t
+              JOIN
+                QRTZ_JOB_DETAILS jd ON (jd.SCHED_NAME = t.SCHED_NAME AND  jd.JOB_GROUP = t.JOB_GROUP AND jd.JOB_NAME = t.JOB_NAME) 
+              WHERE
+                t.SCHED_NAME = @schedulerName AND TRIGGER_STATE = @state AND NEXT_FIRE_TIME <= @noLaterThan AND (MISFIRE_INSTR = -1 OR (MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME >= @noEarlierThan))
+              ORDER BY 
+                NEXT_FIRE_TIME ASC, PRIORITY DESC LIMIT 1
+2022-03-10 17:17:43.384 +08:00 [DBG] Lock 'TRIGGER_ACCESS' returned by: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:17:43.384 +08:00 [DBG] Batch acquisition of 0 triggers
+2022-03-10 17:17:43.461 +08:00 [DBG] Prepared SQL: SELECT COUNT(TRIGGER_NAME) FROM QRTZ_TRIGGERS WHERE SCHED_NAME = @schedulerName AND MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME < @nextFireTime AND TRIGGER_STATE = @state1
+2022-03-10 17:17:43.495 +08:00 [DBG] Found 0 triggers that missed their scheduled fire-time.
+2022-03-10 17:18:08.398 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is desired by: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:18:08.398 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_LOCKS SET LOCK_NAME = LOCK_NAME WHERE SCHED_NAME = @schedulerName AND LOCK_NAME = @lockName
+2022-03-10 17:18:08.398 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is being obtained: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:18:08.403 +08:00 [DBG] Lock 'TRIGGER_ACCESS' given to: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:18:08.403 +08:00 [DBG] Prepared SQL: SELECT
+                t.TRIGGER_NAME, t.TRIGGER_GROUP, jd.JOB_CLASS_NAME
+              FROM
+                QRTZ_TRIGGERS t
+              JOIN
+                QRTZ_JOB_DETAILS jd ON (jd.SCHED_NAME = t.SCHED_NAME AND  jd.JOB_GROUP = t.JOB_GROUP AND jd.JOB_NAME = t.JOB_NAME) 
+              WHERE
+                t.SCHED_NAME = @schedulerName AND TRIGGER_STATE = @state AND NEXT_FIRE_TIME <= @noLaterThan AND (MISFIRE_INSTR = -1 OR (MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME >= @noEarlierThan))
+              ORDER BY 
+                NEXT_FIRE_TIME ASC, PRIORITY DESC LIMIT 1
+2022-03-10 17:18:08.866 +08:00 [DBG] Lock 'TRIGGER_ACCESS' returned by: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:18:08.866 +08:00 [DBG] Batch acquisition of 0 triggers
+2022-03-10 17:18:34.519 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is desired by: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:18:34.519 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_LOCKS SET LOCK_NAME = LOCK_NAME WHERE SCHED_NAME = @schedulerName AND LOCK_NAME = @lockName
+2022-03-10 17:18:34.519 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is being obtained: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:18:34.521 +08:00 [DBG] Lock 'TRIGGER_ACCESS' given to: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:18:34.521 +08:00 [DBG] Prepared SQL: SELECT
+                t.TRIGGER_NAME, t.TRIGGER_GROUP, jd.JOB_CLASS_NAME
+              FROM
+                QRTZ_TRIGGERS t
+              JOIN
+                QRTZ_JOB_DETAILS jd ON (jd.SCHED_NAME = t.SCHED_NAME AND  jd.JOB_GROUP = t.JOB_GROUP AND jd.JOB_NAME = t.JOB_NAME) 
+              WHERE
+                t.SCHED_NAME = @schedulerName AND TRIGGER_STATE = @state AND NEXT_FIRE_TIME <= @noLaterThan AND (MISFIRE_INSTR = -1 OR (MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME >= @noEarlierThan))
+              ORDER BY 
+                NEXT_FIRE_TIME ASC, PRIORITY DESC LIMIT 1
+2022-03-10 17:18:34.891 +08:00 [DBG] Lock 'TRIGGER_ACCESS' returned by: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:18:34.891 +08:00 [DBG] Batch acquisition of 0 triggers
+2022-03-10 17:18:43.257 +08:00 [DBG] Scanning for misfires...
+2022-03-10 17:18:43.257 +08:00 [DBG] Prepared SQL: SELECT COUNT(TRIGGER_NAME) FROM QRTZ_TRIGGERS WHERE SCHED_NAME = @schedulerName AND MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME < @nextFireTime AND TRIGGER_STATE = @state1
+2022-03-10 17:18:43.257 +08:00 [DBG] Found 0 triggers that missed their scheduled fire-time.
+2022-03-10 17:19:01.125 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is desired by: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:19:01.125 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_LOCKS SET LOCK_NAME = LOCK_NAME WHERE SCHED_NAME = @schedulerName AND LOCK_NAME = @lockName
+2022-03-10 17:19:01.125 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is being obtained: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:19:01.127 +08:00 [DBG] Lock 'TRIGGER_ACCESS' given to: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:19:01.127 +08:00 [DBG] Prepared SQL: SELECT
+                t.TRIGGER_NAME, t.TRIGGER_GROUP, jd.JOB_CLASS_NAME
+              FROM
+                QRTZ_TRIGGERS t
+              JOIN
+                QRTZ_JOB_DETAILS jd ON (jd.SCHED_NAME = t.SCHED_NAME AND  jd.JOB_GROUP = t.JOB_GROUP AND jd.JOB_NAME = t.JOB_NAME) 
+              WHERE
+                t.SCHED_NAME = @schedulerName AND TRIGGER_STATE = @state AND NEXT_FIRE_TIME <= @noLaterThan AND (MISFIRE_INSTR = -1 OR (MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME >= @noEarlierThan))
+              ORDER BY 
+                NEXT_FIRE_TIME ASC, PRIORITY DESC LIMIT 1
+2022-03-10 17:19:01.259 +08:00 [DBG] Lock 'TRIGGER_ACCESS' returned by: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:19:01.259 +08:00 [DBG] Batch acquisition of 0 triggers
+2022-03-10 17:19:25.516 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is desired by: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:19:25.516 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_LOCKS SET LOCK_NAME = LOCK_NAME WHERE SCHED_NAME = @schedulerName AND LOCK_NAME = @lockName
+2022-03-10 17:19:25.516 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is being obtained: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:19:25.517 +08:00 [DBG] Lock 'TRIGGER_ACCESS' given to: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:19:25.518 +08:00 [DBG] Prepared SQL: SELECT
+                t.TRIGGER_NAME, t.TRIGGER_GROUP, jd.JOB_CLASS_NAME
+              FROM
+                QRTZ_TRIGGERS t
+              JOIN
+                QRTZ_JOB_DETAILS jd ON (jd.SCHED_NAME = t.SCHED_NAME AND  jd.JOB_GROUP = t.JOB_GROUP AND jd.JOB_NAME = t.JOB_NAME) 
+              WHERE
+                t.SCHED_NAME = @schedulerName AND TRIGGER_STATE = @state AND NEXT_FIRE_TIME <= @noLaterThan AND (MISFIRE_INSTR = -1 OR (MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME >= @noEarlierThan))
+              ORDER BY 
+                NEXT_FIRE_TIME ASC, PRIORITY DESC LIMIT 1
+2022-03-10 17:19:25.648 +08:00 [DBG] Lock 'TRIGGER_ACCESS' returned by: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:19:25.648 +08:00 [DBG] Batch acquisition of 0 triggers
+2022-03-10 17:19:43.269 +08:00 [DBG] Scanning for misfires...
+2022-03-10 17:19:43.269 +08:00 [DBG] Prepared SQL: SELECT COUNT(TRIGGER_NAME) FROM QRTZ_TRIGGERS WHERE SCHED_NAME = @schedulerName AND MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME < @nextFireTime AND TRIGGER_STATE = @state1
+2022-03-10 17:19:43.269 +08:00 [DBG] Found 0 triggers that missed their scheduled fire-time.
+2022-03-10 17:19:55.297 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is desired by: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:19:55.298 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_LOCKS SET LOCK_NAME = LOCK_NAME WHERE SCHED_NAME = @schedulerName AND LOCK_NAME = @lockName
+2022-03-10 17:19:55.298 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is being obtained: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:19:55.300 +08:00 [DBG] Lock 'TRIGGER_ACCESS' given to: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:19:55.300 +08:00 [DBG] Prepared SQL: SELECT
+                t.TRIGGER_NAME, t.TRIGGER_GROUP, jd.JOB_CLASS_NAME
+              FROM
+                QRTZ_TRIGGERS t
+              JOIN
+                QRTZ_JOB_DETAILS jd ON (jd.SCHED_NAME = t.SCHED_NAME AND  jd.JOB_GROUP = t.JOB_GROUP AND jd.JOB_NAME = t.JOB_NAME) 
+              WHERE
+                t.SCHED_NAME = @schedulerName AND TRIGGER_STATE = @state AND NEXT_FIRE_TIME <= @noLaterThan AND (MISFIRE_INSTR = -1 OR (MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME >= @noEarlierThan))
+              ORDER BY 
+                NEXT_FIRE_TIME ASC, PRIORITY DESC LIMIT 1
+2022-03-10 17:19:55.432 +08:00 [DBG] Lock 'TRIGGER_ACCESS' returned by: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:19:55.432 +08:00 [DBG] Batch acquisition of 0 triggers
+2022-03-10 17:20:21.746 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is desired by: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:20:21.746 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_LOCKS SET LOCK_NAME = LOCK_NAME WHERE SCHED_NAME = @schedulerName AND LOCK_NAME = @lockName
+2022-03-10 17:20:21.746 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is being obtained: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:20:21.748 +08:00 [DBG] Lock 'TRIGGER_ACCESS' given to: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:20:21.748 +08:00 [DBG] Prepared SQL: SELECT
+                t.TRIGGER_NAME, t.TRIGGER_GROUP, jd.JOB_CLASS_NAME
+              FROM
+                QRTZ_TRIGGERS t
+              JOIN
+                QRTZ_JOB_DETAILS jd ON (jd.SCHED_NAME = t.SCHED_NAME AND  jd.JOB_GROUP = t.JOB_GROUP AND jd.JOB_NAME = t.JOB_NAME) 
+              WHERE
+                t.SCHED_NAME = @schedulerName AND TRIGGER_STATE = @state AND NEXT_FIRE_TIME <= @noLaterThan AND (MISFIRE_INSTR = -1 OR (MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME >= @noEarlierThan))
+              ORDER BY 
+                NEXT_FIRE_TIME ASC, PRIORITY DESC LIMIT 1
+2022-03-10 17:20:21.795 +08:00 [DBG] Lock 'TRIGGER_ACCESS' returned by: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:20:21.795 +08:00 [DBG] Batch acquisition of 0 triggers
+2022-03-10 17:20:43.288 +08:00 [DBG] Scanning for misfires...
+2022-03-10 17:20:43.289 +08:00 [DBG] Prepared SQL: SELECT COUNT(TRIGGER_NAME) FROM QRTZ_TRIGGERS WHERE SCHED_NAME = @schedulerName AND MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME < @nextFireTime AND TRIGGER_STATE = @state1
+2022-03-10 17:20:43.289 +08:00 [DBG] Found 0 triggers that missed their scheduled fire-time.
+2022-03-10 17:20:49.030 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is desired by: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:20:49.030 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_LOCKS SET LOCK_NAME = LOCK_NAME WHERE SCHED_NAME = @schedulerName AND LOCK_NAME = @lockName
+2022-03-10 17:20:49.030 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is being obtained: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:20:49.055 +08:00 [DBG] Lock 'TRIGGER_ACCESS' given to: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:20:49.055 +08:00 [DBG] Prepared SQL: SELECT
+                t.TRIGGER_NAME, t.TRIGGER_GROUP, jd.JOB_CLASS_NAME
+              FROM
+                QRTZ_TRIGGERS t
+              JOIN
+                QRTZ_JOB_DETAILS jd ON (jd.SCHED_NAME = t.SCHED_NAME AND  jd.JOB_GROUP = t.JOB_GROUP AND jd.JOB_NAME = t.JOB_NAME) 
+              WHERE
+                t.SCHED_NAME = @schedulerName AND TRIGGER_STATE = @state AND NEXT_FIRE_TIME <= @noLaterThan AND (MISFIRE_INSTR = -1 OR (MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME >= @noEarlierThan))
+              ORDER BY 
+                NEXT_FIRE_TIME ASC, PRIORITY DESC LIMIT 1
+2022-03-10 17:20:49.299 +08:00 [DBG] Lock 'TRIGGER_ACCESS' returned by: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:20:49.299 +08:00 [DBG] Batch acquisition of 0 triggers
+2022-03-10 17:21:17.685 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is desired by: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:21:17.685 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_LOCKS SET LOCK_NAME = LOCK_NAME WHERE SCHED_NAME = @schedulerName AND LOCK_NAME = @lockName
+2022-03-10 17:21:17.685 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is being obtained: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:21:17.792 +08:00 [DBG] Lock 'TRIGGER_ACCESS' given to: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:21:17.792 +08:00 [DBG] Prepared SQL: SELECT
+                t.TRIGGER_NAME, t.TRIGGER_GROUP, jd.JOB_CLASS_NAME
+              FROM
+                QRTZ_TRIGGERS t
+              JOIN
+                QRTZ_JOB_DETAILS jd ON (jd.SCHED_NAME = t.SCHED_NAME AND  jd.JOB_GROUP = t.JOB_GROUP AND jd.JOB_NAME = t.JOB_NAME) 
+              WHERE
+                t.SCHED_NAME = @schedulerName AND TRIGGER_STATE = @state AND NEXT_FIRE_TIME <= @noLaterThan AND (MISFIRE_INSTR = -1 OR (MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME >= @noEarlierThan))
+              ORDER BY 
+                NEXT_FIRE_TIME ASC, PRIORITY DESC LIMIT 1
+2022-03-10 17:21:17.861 +08:00 [DBG] Lock 'TRIGGER_ACCESS' returned by: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:21:17.861 +08:00 [DBG] Batch acquisition of 0 triggers
+2022-03-10 17:21:43.312 +08:00 [DBG] Scanning for misfires...
+2022-03-10 17:21:43.312 +08:00 [DBG] Prepared SQL: SELECT COUNT(TRIGGER_NAME) FROM QRTZ_TRIGGERS WHERE SCHED_NAME = @schedulerName AND MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME < @nextFireTime AND TRIGGER_STATE = @state1
+2022-03-10 17:21:43.312 +08:00 [DBG] Found 0 triggers that missed their scheduled fire-time.
+2022-03-10 17:21:47.129 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is desired by: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:21:47.130 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_LOCKS SET LOCK_NAME = LOCK_NAME WHERE SCHED_NAME = @schedulerName AND LOCK_NAME = @lockName
+2022-03-10 17:21:47.130 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is being obtained: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:21:47.131 +08:00 [DBG] Lock 'TRIGGER_ACCESS' given to: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:21:47.131 +08:00 [DBG] Prepared SQL: SELECT
+                t.TRIGGER_NAME, t.TRIGGER_GROUP, jd.JOB_CLASS_NAME
+              FROM
+                QRTZ_TRIGGERS t
+              JOIN
+                QRTZ_JOB_DETAILS jd ON (jd.SCHED_NAME = t.SCHED_NAME AND  jd.JOB_GROUP = t.JOB_GROUP AND jd.JOB_NAME = t.JOB_NAME) 
+              WHERE
+                t.SCHED_NAME = @schedulerName AND TRIGGER_STATE = @state AND NEXT_FIRE_TIME <= @noLaterThan AND (MISFIRE_INSTR = -1 OR (MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME >= @noEarlierThan))
+              ORDER BY 
+                NEXT_FIRE_TIME ASC, PRIORITY DESC LIMIT 1
+2022-03-10 17:21:47.183 +08:00 [DBG] Lock 'TRIGGER_ACCESS' returned by: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:21:47.183 +08:00 [DBG] Batch acquisition of 0 triggers
+2022-03-10 17:22:13.743 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is desired by: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:22:13.743 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_LOCKS SET LOCK_NAME = LOCK_NAME WHERE SCHED_NAME = @schedulerName AND LOCK_NAME = @lockName
+2022-03-10 17:22:13.743 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is being obtained: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:22:13.750 +08:00 [DBG] Lock 'TRIGGER_ACCESS' given to: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:22:13.750 +08:00 [DBG] Prepared SQL: SELECT
+                t.TRIGGER_NAME, t.TRIGGER_GROUP, jd.JOB_CLASS_NAME
+              FROM
+                QRTZ_TRIGGERS t
+              JOIN
+                QRTZ_JOB_DETAILS jd ON (jd.SCHED_NAME = t.SCHED_NAME AND  jd.JOB_GROUP = t.JOB_GROUP AND jd.JOB_NAME = t.JOB_NAME) 
+              WHERE
+                t.SCHED_NAME = @schedulerName AND TRIGGER_STATE = @state AND NEXT_FIRE_TIME <= @noLaterThan AND (MISFIRE_INSTR = -1 OR (MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME >= @noEarlierThan))
+              ORDER BY 
+                NEXT_FIRE_TIME ASC, PRIORITY DESC LIMIT 1
+2022-03-10 17:22:13.965 +08:00 [DBG] Lock 'TRIGGER_ACCESS' returned by: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:22:13.965 +08:00 [DBG] Batch acquisition of 0 triggers
+2022-03-10 17:22:40.964 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is desired by: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:22:40.964 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_LOCKS SET LOCK_NAME = LOCK_NAME WHERE SCHED_NAME = @schedulerName AND LOCK_NAME = @lockName
+2022-03-10 17:22:40.964 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is being obtained: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:22:40.966 +08:00 [DBG] Lock 'TRIGGER_ACCESS' given to: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:22:40.966 +08:00 [DBG] Prepared SQL: SELECT
+                t.TRIGGER_NAME, t.TRIGGER_GROUP, jd.JOB_CLASS_NAME
+              FROM
+                QRTZ_TRIGGERS t
+              JOIN
+                QRTZ_JOB_DETAILS jd ON (jd.SCHED_NAME = t.SCHED_NAME AND  jd.JOB_GROUP = t.JOB_GROUP AND jd.JOB_NAME = t.JOB_NAME) 
+              WHERE
+                t.SCHED_NAME = @schedulerName AND TRIGGER_STATE = @state AND NEXT_FIRE_TIME <= @noLaterThan AND (MISFIRE_INSTR = -1 OR (MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME >= @noEarlierThan))
+              ORDER BY 
+                NEXT_FIRE_TIME ASC, PRIORITY DESC LIMIT 1
+2022-03-10 17:22:41.377 +08:00 [DBG] Lock 'TRIGGER_ACCESS' returned by: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:22:41.377 +08:00 [DBG] Batch acquisition of 0 triggers
+2022-03-10 17:22:43.320 +08:00 [DBG] Scanning for misfires...
+2022-03-10 17:22:43.321 +08:00 [DBG] Prepared SQL: SELECT COUNT(TRIGGER_NAME) FROM QRTZ_TRIGGERS WHERE SCHED_NAME = @schedulerName AND MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME < @nextFireTime AND TRIGGER_STATE = @state1
+2022-03-10 17:22:43.321 +08:00 [DBG] Found 0 triggers that missed their scheduled fire-time.
+2022-03-10 17:23:09.980 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is desired by: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:23:09.980 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_LOCKS SET LOCK_NAME = LOCK_NAME WHERE SCHED_NAME = @schedulerName AND LOCK_NAME = @lockName
+2022-03-10 17:23:09.980 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is being obtained: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:23:09.982 +08:00 [DBG] Lock 'TRIGGER_ACCESS' given to: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:23:09.982 +08:00 [DBG] Prepared SQL: SELECT
+                t.TRIGGER_NAME, t.TRIGGER_GROUP, jd.JOB_CLASS_NAME
+              FROM
+                QRTZ_TRIGGERS t
+              JOIN
+                QRTZ_JOB_DETAILS jd ON (jd.SCHED_NAME = t.SCHED_NAME AND  jd.JOB_GROUP = t.JOB_GROUP AND jd.JOB_NAME = t.JOB_NAME) 
+              WHERE
+                t.SCHED_NAME = @schedulerName AND TRIGGER_STATE = @state AND NEXT_FIRE_TIME <= @noLaterThan AND (MISFIRE_INSTR = -1 OR (MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME >= @noEarlierThan))
+              ORDER BY 
+                NEXT_FIRE_TIME ASC, PRIORITY DESC LIMIT 1
+2022-03-10 17:23:10.115 +08:00 [DBG] Lock 'TRIGGER_ACCESS' returned by: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:23:10.116 +08:00 [DBG] Batch acquisition of 0 triggers
+2022-03-10 17:23:36.460 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is desired by: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:23:36.460 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_LOCKS SET LOCK_NAME = LOCK_NAME WHERE SCHED_NAME = @schedulerName AND LOCK_NAME = @lockName
+2022-03-10 17:23:36.460 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is being obtained: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:23:36.463 +08:00 [DBG] Lock 'TRIGGER_ACCESS' given to: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:23:36.463 +08:00 [DBG] Prepared SQL: SELECT
+                t.TRIGGER_NAME, t.TRIGGER_GROUP, jd.JOB_CLASS_NAME
+              FROM
+                QRTZ_TRIGGERS t
+              JOIN
+                QRTZ_JOB_DETAILS jd ON (jd.SCHED_NAME = t.SCHED_NAME AND  jd.JOB_GROUP = t.JOB_GROUP AND jd.JOB_NAME = t.JOB_NAME) 
+              WHERE
+                t.SCHED_NAME = @schedulerName AND TRIGGER_STATE = @state AND NEXT_FIRE_TIME <= @noLaterThan AND (MISFIRE_INSTR = -1 OR (MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME >= @noEarlierThan))
+              ORDER BY 
+                NEXT_FIRE_TIME ASC, PRIORITY DESC LIMIT 1
+2022-03-10 17:23:36.590 +08:00 [DBG] Lock 'TRIGGER_ACCESS' returned by: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:23:36.590 +08:00 [DBG] Batch acquisition of 0 triggers
+2022-03-10 17:23:43.331 +08:00 [DBG] Scanning for misfires...
+2022-03-10 17:23:43.331 +08:00 [DBG] Prepared SQL: SELECT COUNT(TRIGGER_NAME) FROM QRTZ_TRIGGERS WHERE SCHED_NAME = @schedulerName AND MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME < @nextFireTime AND TRIGGER_STATE = @state1
+2022-03-10 17:23:43.331 +08:00 [DBG] Found 0 triggers that missed their scheduled fire-time.
+2022-03-10 17:24:00.378 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is desired by: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:24:00.378 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_LOCKS SET LOCK_NAME = LOCK_NAME WHERE SCHED_NAME = @schedulerName AND LOCK_NAME = @lockName
+2022-03-10 17:24:00.378 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is being obtained: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:24:00.380 +08:00 [DBG] Lock 'TRIGGER_ACCESS' given to: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:24:00.380 +08:00 [DBG] Prepared SQL: SELECT
+                t.TRIGGER_NAME, t.TRIGGER_GROUP, jd.JOB_CLASS_NAME
+              FROM
+                QRTZ_TRIGGERS t
+              JOIN
+                QRTZ_JOB_DETAILS jd ON (jd.SCHED_NAME = t.SCHED_NAME AND  jd.JOB_GROUP = t.JOB_GROUP AND jd.JOB_NAME = t.JOB_NAME) 
+              WHERE
+                t.SCHED_NAME = @schedulerName AND TRIGGER_STATE = @state AND NEXT_FIRE_TIME <= @noLaterThan AND (MISFIRE_INSTR = -1 OR (MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME >= @noEarlierThan))
+              ORDER BY 
+                NEXT_FIRE_TIME ASC, PRIORITY DESC LIMIT 1
+2022-03-10 17:24:00.430 +08:00 [DBG] Lock 'TRIGGER_ACCESS' returned by: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:24:00.430 +08:00 [DBG] Batch acquisition of 0 triggers
+2022-03-10 17:24:26.571 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is desired by: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:24:26.571 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_LOCKS SET LOCK_NAME = LOCK_NAME WHERE SCHED_NAME = @schedulerName AND LOCK_NAME = @lockName
+2022-03-10 17:24:26.571 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is being obtained: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:24:26.573 +08:00 [DBG] Lock 'TRIGGER_ACCESS' given to: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:24:26.573 +08:00 [DBG] Prepared SQL: SELECT
+                t.TRIGGER_NAME, t.TRIGGER_GROUP, jd.JOB_CLASS_NAME
+              FROM
+                QRTZ_TRIGGERS t
+              JOIN
+                QRTZ_JOB_DETAILS jd ON (jd.SCHED_NAME = t.SCHED_NAME AND  jd.JOB_GROUP = t.JOB_GROUP AND jd.JOB_NAME = t.JOB_NAME) 
+              WHERE
+                t.SCHED_NAME = @schedulerName AND TRIGGER_STATE = @state AND NEXT_FIRE_TIME <= @noLaterThan AND (MISFIRE_INSTR = -1 OR (MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME >= @noEarlierThan))
+              ORDER BY 
+                NEXT_FIRE_TIME ASC, PRIORITY DESC LIMIT 1
+2022-03-10 17:24:26.634 +08:00 [DBG] Lock 'TRIGGER_ACCESS' returned by: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:24:26.634 +08:00 [DBG] Batch acquisition of 0 triggers
+2022-03-10 17:24:43.349 +08:00 [DBG] Scanning for misfires...
+2022-03-10 17:24:43.350 +08:00 [DBG] Prepared SQL: SELECT COUNT(TRIGGER_NAME) FROM QRTZ_TRIGGERS WHERE SCHED_NAME = @schedulerName AND MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME < @nextFireTime AND TRIGGER_STATE = @state1
+2022-03-10 17:24:43.350 +08:00 [DBG] Found 0 triggers that missed their scheduled fire-time.
+2022-03-10 17:24:50.080 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is desired by: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:24:50.080 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_LOCKS SET LOCK_NAME = LOCK_NAME WHERE SCHED_NAME = @schedulerName AND LOCK_NAME = @lockName
+2022-03-10 17:24:50.080 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is being obtained: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:24:50.083 +08:00 [DBG] Lock 'TRIGGER_ACCESS' given to: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:24:50.083 +08:00 [DBG] Prepared SQL: SELECT
+                t.TRIGGER_NAME, t.TRIGGER_GROUP, jd.JOB_CLASS_NAME
+              FROM
+                QRTZ_TRIGGERS t
+              JOIN
+                QRTZ_JOB_DETAILS jd ON (jd.SCHED_NAME = t.SCHED_NAME AND  jd.JOB_GROUP = t.JOB_GROUP AND jd.JOB_NAME = t.JOB_NAME) 
+              WHERE
+                t.SCHED_NAME = @schedulerName AND TRIGGER_STATE = @state AND NEXT_FIRE_TIME <= @noLaterThan AND (MISFIRE_INSTR = -1 OR (MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME >= @noEarlierThan))
+              ORDER BY 
+                NEXT_FIRE_TIME ASC, PRIORITY DESC LIMIT 1
+2022-03-10 17:24:50.217 +08:00 [DBG] Lock 'TRIGGER_ACCESS' returned by: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:24:50.217 +08:00 [DBG] Batch acquisition of 0 triggers
+2022-03-10 17:25:18.041 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is desired by: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:25:18.041 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_LOCKS SET LOCK_NAME = LOCK_NAME WHERE SCHED_NAME = @schedulerName AND LOCK_NAME = @lockName
+2022-03-10 17:25:18.041 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is being obtained: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:25:18.044 +08:00 [DBG] Lock 'TRIGGER_ACCESS' given to: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:25:18.044 +08:00 [DBG] Prepared SQL: SELECT
+                t.TRIGGER_NAME, t.TRIGGER_GROUP, jd.JOB_CLASS_NAME
+              FROM
+                QRTZ_TRIGGERS t
+              JOIN
+                QRTZ_JOB_DETAILS jd ON (jd.SCHED_NAME = t.SCHED_NAME AND  jd.JOB_GROUP = t.JOB_GROUP AND jd.JOB_NAME = t.JOB_NAME) 
+              WHERE
+                t.SCHED_NAME = @schedulerName AND TRIGGER_STATE = @state AND NEXT_FIRE_TIME <= @noLaterThan AND (MISFIRE_INSTR = -1 OR (MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME >= @noEarlierThan))
+              ORDER BY 
+                NEXT_FIRE_TIME ASC, PRIORITY DESC LIMIT 1
+2022-03-10 17:25:18.171 +08:00 [DBG] Lock 'TRIGGER_ACCESS' returned by: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:25:18.171 +08:00 [DBG] Batch acquisition of 0 triggers
+2022-03-10 17:25:43.110 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is desired by: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:25:43.111 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_LOCKS SET LOCK_NAME = LOCK_NAME WHERE SCHED_NAME = @schedulerName AND LOCK_NAME = @lockName
+2022-03-10 17:25:43.111 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is being obtained: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:25:43.115 +08:00 [DBG] Lock 'TRIGGER_ACCESS' given to: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:25:43.115 +08:00 [DBG] Prepared SQL: SELECT
+                t.TRIGGER_NAME, t.TRIGGER_GROUP, jd.JOB_CLASS_NAME
+              FROM
+                QRTZ_TRIGGERS t
+              JOIN
+                QRTZ_JOB_DETAILS jd ON (jd.SCHED_NAME = t.SCHED_NAME AND  jd.JOB_GROUP = t.JOB_GROUP AND jd.JOB_NAME = t.JOB_NAME) 
+              WHERE
+                t.SCHED_NAME = @schedulerName AND TRIGGER_STATE = @state AND NEXT_FIRE_TIME <= @noLaterThan AND (MISFIRE_INSTR = -1 OR (MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME >= @noEarlierThan))
+              ORDER BY 
+                NEXT_FIRE_TIME ASC, PRIORITY DESC LIMIT 1
+2022-03-10 17:25:43.178 +08:00 [DBG] Lock 'TRIGGER_ACCESS' returned by: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:25:43.178 +08:00 [DBG] Batch acquisition of 0 triggers
+2022-03-10 17:25:43.366 +08:00 [DBG] Scanning for misfires...
+2022-03-10 17:25:43.366 +08:00 [DBG] Prepared SQL: SELECT COUNT(TRIGGER_NAME) FROM QRTZ_TRIGGERS WHERE SCHED_NAME = @schedulerName AND MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME < @nextFireTime AND TRIGGER_STATE = @state1
+2022-03-10 17:25:43.366 +08:00 [DBG] Found 0 triggers that missed their scheduled fire-time.
+2022-03-10 17:26:09.907 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is desired by: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:26:09.907 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_LOCKS SET LOCK_NAME = LOCK_NAME WHERE SCHED_NAME = @schedulerName AND LOCK_NAME = @lockName
+2022-03-10 17:26:09.907 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is being obtained: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:26:09.909 +08:00 [DBG] Lock 'TRIGGER_ACCESS' given to: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:26:09.909 +08:00 [DBG] Prepared SQL: SELECT
+                t.TRIGGER_NAME, t.TRIGGER_GROUP, jd.JOB_CLASS_NAME
+              FROM
+                QRTZ_TRIGGERS t
+              JOIN
+                QRTZ_JOB_DETAILS jd ON (jd.SCHED_NAME = t.SCHED_NAME AND  jd.JOB_GROUP = t.JOB_GROUP AND jd.JOB_NAME = t.JOB_NAME) 
+              WHERE
+                t.SCHED_NAME = @schedulerName AND TRIGGER_STATE = @state AND NEXT_FIRE_TIME <= @noLaterThan AND (MISFIRE_INSTR = -1 OR (MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME >= @noEarlierThan))
+              ORDER BY 
+                NEXT_FIRE_TIME ASC, PRIORITY DESC LIMIT 1
+2022-03-10 17:26:09.982 +08:00 [DBG] Lock 'TRIGGER_ACCESS' returned by: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:26:09.982 +08:00 [DBG] Batch acquisition of 0 triggers
+2022-03-10 17:26:39.142 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is desired by: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:26:39.142 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_LOCKS SET LOCK_NAME = LOCK_NAME WHERE SCHED_NAME = @schedulerName AND LOCK_NAME = @lockName
+2022-03-10 17:26:39.142 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is being obtained: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:26:39.145 +08:00 [DBG] Lock 'TRIGGER_ACCESS' given to: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:26:39.146 +08:00 [DBG] Prepared SQL: SELECT
+                t.TRIGGER_NAME, t.TRIGGER_GROUP, jd.JOB_CLASS_NAME
+              FROM
+                QRTZ_TRIGGERS t
+              JOIN
+                QRTZ_JOB_DETAILS jd ON (jd.SCHED_NAME = t.SCHED_NAME AND  jd.JOB_GROUP = t.JOB_GROUP AND jd.JOB_NAME = t.JOB_NAME) 
+              WHERE
+                t.SCHED_NAME = @schedulerName AND TRIGGER_STATE = @state AND NEXT_FIRE_TIME <= @noLaterThan AND (MISFIRE_INSTR = -1 OR (MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME >= @noEarlierThan))
+              ORDER BY 
+                NEXT_FIRE_TIME ASC, PRIORITY DESC LIMIT 1
+2022-03-10 17:26:39.276 +08:00 [DBG] Lock 'TRIGGER_ACCESS' returned by: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:26:39.276 +08:00 [DBG] Batch acquisition of 0 triggers
+2022-03-10 17:26:43.378 +08:00 [DBG] Scanning for misfires...
+2022-03-10 17:26:43.378 +08:00 [DBG] Prepared SQL: SELECT COUNT(TRIGGER_NAME) FROM QRTZ_TRIGGERS WHERE SCHED_NAME = @schedulerName AND MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME < @nextFireTime AND TRIGGER_STATE = @state1
+2022-03-10 17:26:43.378 +08:00 [DBG] Found 0 triggers that missed their scheduled fire-time.
+2022-03-10 17:27:03.137 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is desired by: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:27:03.137 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_LOCKS SET LOCK_NAME = LOCK_NAME WHERE SCHED_NAME = @schedulerName AND LOCK_NAME = @lockName
+2022-03-10 17:27:03.137 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is being obtained: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:27:03.143 +08:00 [DBG] Lock 'TRIGGER_ACCESS' given to: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:27:03.143 +08:00 [DBG] Prepared SQL: SELECT
+                t.TRIGGER_NAME, t.TRIGGER_GROUP, jd.JOB_CLASS_NAME
+              FROM
+                QRTZ_TRIGGERS t
+              JOIN
+                QRTZ_JOB_DETAILS jd ON (jd.SCHED_NAME = t.SCHED_NAME AND  jd.JOB_GROUP = t.JOB_GROUP AND jd.JOB_NAME = t.JOB_NAME) 
+              WHERE
+                t.SCHED_NAME = @schedulerName AND TRIGGER_STATE = @state AND NEXT_FIRE_TIME <= @noLaterThan AND (MISFIRE_INSTR = -1 OR (MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME >= @noEarlierThan))
+              ORDER BY 
+                NEXT_FIRE_TIME ASC, PRIORITY DESC LIMIT 1
+2022-03-10 17:27:03.286 +08:00 [DBG] Lock 'TRIGGER_ACCESS' returned by: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:27:03.286 +08:00 [DBG] Batch acquisition of 0 triggers
+2022-03-10 17:27:30.250 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is desired by: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:27:30.250 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_LOCKS SET LOCK_NAME = LOCK_NAME WHERE SCHED_NAME = @schedulerName AND LOCK_NAME = @lockName
+2022-03-10 17:27:30.250 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is being obtained: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:27:30.252 +08:00 [DBG] Lock 'TRIGGER_ACCESS' given to: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:27:30.252 +08:00 [DBG] Prepared SQL: SELECT
+                t.TRIGGER_NAME, t.TRIGGER_GROUP, jd.JOB_CLASS_NAME
+              FROM
+                QRTZ_TRIGGERS t
+              JOIN
+                QRTZ_JOB_DETAILS jd ON (jd.SCHED_NAME = t.SCHED_NAME AND  jd.JOB_GROUP = t.JOB_GROUP AND jd.JOB_NAME = t.JOB_NAME) 
+              WHERE
+                t.SCHED_NAME = @schedulerName AND TRIGGER_STATE = @state AND NEXT_FIRE_TIME <= @noLaterThan AND (MISFIRE_INSTR = -1 OR (MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME >= @noEarlierThan))
+              ORDER BY 
+                NEXT_FIRE_TIME ASC, PRIORITY DESC LIMIT 1
+2022-03-10 17:27:30.313 +08:00 [DBG] Lock 'TRIGGER_ACCESS' returned by: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:27:30.313 +08:00 [DBG] Batch acquisition of 0 triggers
+2022-03-10 17:27:43.399 +08:00 [DBG] Scanning for misfires...
+2022-03-10 17:27:43.399 +08:00 [DBG] Prepared SQL: SELECT COUNT(TRIGGER_NAME) FROM QRTZ_TRIGGERS WHERE SCHED_NAME = @schedulerName AND MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME < @nextFireTime AND TRIGGER_STATE = @state1
+2022-03-10 17:27:43.400 +08:00 [DBG] Found 0 triggers that missed their scheduled fire-time.
+2022-03-10 17:27:55.598 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is desired by: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:27:55.598 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_LOCKS SET LOCK_NAME = LOCK_NAME WHERE SCHED_NAME = @schedulerName AND LOCK_NAME = @lockName
+2022-03-10 17:27:55.598 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is being obtained: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:27:55.622 +08:00 [DBG] Lock 'TRIGGER_ACCESS' given to: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:27:55.623 +08:00 [DBG] Prepared SQL: SELECT
+                t.TRIGGER_NAME, t.TRIGGER_GROUP, jd.JOB_CLASS_NAME
+              FROM
+                QRTZ_TRIGGERS t
+              JOIN
+                QRTZ_JOB_DETAILS jd ON (jd.SCHED_NAME = t.SCHED_NAME AND  jd.JOB_GROUP = t.JOB_GROUP AND jd.JOB_NAME = t.JOB_NAME) 
+              WHERE
+                t.SCHED_NAME = @schedulerName AND TRIGGER_STATE = @state AND NEXT_FIRE_TIME <= @noLaterThan AND (MISFIRE_INSTR = -1 OR (MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME >= @noEarlierThan))
+              ORDER BY 
+                NEXT_FIRE_TIME ASC, PRIORITY DESC LIMIT 1
+2022-03-10 17:27:55.850 +08:00 [DBG] Lock 'TRIGGER_ACCESS' returned by: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:27:55.850 +08:00 [DBG] Batch acquisition of 0 triggers
+2022-03-10 17:28:18.945 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is desired by: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:28:18.945 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_LOCKS SET LOCK_NAME = LOCK_NAME WHERE SCHED_NAME = @schedulerName AND LOCK_NAME = @lockName
+2022-03-10 17:28:18.945 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is being obtained: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:28:18.947 +08:00 [DBG] Lock 'TRIGGER_ACCESS' given to: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:28:18.947 +08:00 [DBG] Prepared SQL: SELECT
+                t.TRIGGER_NAME, t.TRIGGER_GROUP, jd.JOB_CLASS_NAME
+              FROM
+                QRTZ_TRIGGERS t
+              JOIN
+                QRTZ_JOB_DETAILS jd ON (jd.SCHED_NAME = t.SCHED_NAME AND  jd.JOB_GROUP = t.JOB_GROUP AND jd.JOB_NAME = t.JOB_NAME) 
+              WHERE
+                t.SCHED_NAME = @schedulerName AND TRIGGER_STATE = @state AND NEXT_FIRE_TIME <= @noLaterThan AND (MISFIRE_INSTR = -1 OR (MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME >= @noEarlierThan))
+              ORDER BY 
+                NEXT_FIRE_TIME ASC, PRIORITY DESC LIMIT 1
+2022-03-10 17:28:19.071 +08:00 [DBG] Lock 'TRIGGER_ACCESS' returned by: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:28:19.071 +08:00 [DBG] Batch acquisition of 0 triggers
+2022-03-10 17:28:43.407 +08:00 [DBG] Scanning for misfires...
+2022-03-10 17:28:43.408 +08:00 [DBG] Prepared SQL: SELECT COUNT(TRIGGER_NAME) FROM QRTZ_TRIGGERS WHERE SCHED_NAME = @schedulerName AND MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME < @nextFireTime AND TRIGGER_STATE = @state1
+2022-03-10 17:28:43.408 +08:00 [DBG] Found 0 triggers that missed their scheduled fire-time.
+2022-03-10 17:28:46.900 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is desired by: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:28:46.900 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_LOCKS SET LOCK_NAME = LOCK_NAME WHERE SCHED_NAME = @schedulerName AND LOCK_NAME = @lockName
+2022-03-10 17:28:46.900 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is being obtained: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:28:46.904 +08:00 [DBG] Lock 'TRIGGER_ACCESS' given to: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:28:46.904 +08:00 [DBG] Prepared SQL: SELECT
+                t.TRIGGER_NAME, t.TRIGGER_GROUP, jd.JOB_CLASS_NAME
+              FROM
+                QRTZ_TRIGGERS t
+              JOIN
+                QRTZ_JOB_DETAILS jd ON (jd.SCHED_NAME = t.SCHED_NAME AND  jd.JOB_GROUP = t.JOB_GROUP AND jd.JOB_NAME = t.JOB_NAME) 
+              WHERE
+                t.SCHED_NAME = @schedulerName AND TRIGGER_STATE = @state AND NEXT_FIRE_TIME <= @noLaterThan AND (MISFIRE_INSTR = -1 OR (MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME >= @noEarlierThan))
+              ORDER BY 
+                NEXT_FIRE_TIME ASC, PRIORITY DESC LIMIT 1
+2022-03-10 17:28:47.041 +08:00 [DBG] Lock 'TRIGGER_ACCESS' returned by: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:28:47.042 +08:00 [DBG] Batch acquisition of 0 triggers
+2022-03-10 17:29:13.068 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is desired by: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:29:13.068 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_LOCKS SET LOCK_NAME = LOCK_NAME WHERE SCHED_NAME = @schedulerName AND LOCK_NAME = @lockName
+2022-03-10 17:29:13.068 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is being obtained: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:29:13.070 +08:00 [DBG] Lock 'TRIGGER_ACCESS' given to: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:29:13.070 +08:00 [DBG] Prepared SQL: SELECT
+                t.TRIGGER_NAME, t.TRIGGER_GROUP, jd.JOB_CLASS_NAME
+              FROM
+                QRTZ_TRIGGERS t
+              JOIN
+                QRTZ_JOB_DETAILS jd ON (jd.SCHED_NAME = t.SCHED_NAME AND  jd.JOB_GROUP = t.JOB_GROUP AND jd.JOB_NAME = t.JOB_NAME) 
+              WHERE
+                t.SCHED_NAME = @schedulerName AND TRIGGER_STATE = @state AND NEXT_FIRE_TIME <= @noLaterThan AND (MISFIRE_INSTR = -1 OR (MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME >= @noEarlierThan))
+              ORDER BY 
+                NEXT_FIRE_TIME ASC, PRIORITY DESC LIMIT 1
+2022-03-10 17:29:13.129 +08:00 [DBG] Lock 'TRIGGER_ACCESS' returned by: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:29:13.129 +08:00 [DBG] Batch acquisition of 0 triggers
+2022-03-10 17:29:42.148 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is desired by: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:29:42.148 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_LOCKS SET LOCK_NAME = LOCK_NAME WHERE SCHED_NAME = @schedulerName AND LOCK_NAME = @lockName
+2022-03-10 17:29:42.148 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is being obtained: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:29:42.151 +08:00 [DBG] Lock 'TRIGGER_ACCESS' given to: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:29:42.151 +08:00 [DBG] Prepared SQL: SELECT
+                t.TRIGGER_NAME, t.TRIGGER_GROUP, jd.JOB_CLASS_NAME
+              FROM
+                QRTZ_TRIGGERS t
+              JOIN
+                QRTZ_JOB_DETAILS jd ON (jd.SCHED_NAME = t.SCHED_NAME AND  jd.JOB_GROUP = t.JOB_GROUP AND jd.JOB_NAME = t.JOB_NAME) 
+              WHERE
+                t.SCHED_NAME = @schedulerName AND TRIGGER_STATE = @state AND NEXT_FIRE_TIME <= @noLaterThan AND (MISFIRE_INSTR = -1 OR (MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME >= @noEarlierThan))
+              ORDER BY 
+                NEXT_FIRE_TIME ASC, PRIORITY DESC LIMIT 1
+2022-03-10 17:29:42.289 +08:00 [DBG] Lock 'TRIGGER_ACCESS' returned by: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:29:42.289 +08:00 [DBG] Batch acquisition of 0 triggers
+2022-03-10 17:29:43.423 +08:00 [DBG] Scanning for misfires...
+2022-03-10 17:29:43.423 +08:00 [DBG] Prepared SQL: SELECT COUNT(TRIGGER_NAME) FROM QRTZ_TRIGGERS WHERE SCHED_NAME = @schedulerName AND MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME < @nextFireTime AND TRIGGER_STATE = @state1
+2022-03-10 17:29:43.423 +08:00 [DBG] Found 0 triggers that missed their scheduled fire-time.
+2022-03-10 17:30:07.432 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is desired by: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:30:07.432 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_LOCKS SET LOCK_NAME = LOCK_NAME WHERE SCHED_NAME = @schedulerName AND LOCK_NAME = @lockName
+2022-03-10 17:30:07.432 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is being obtained: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:30:07.435 +08:00 [DBG] Lock 'TRIGGER_ACCESS' given to: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:30:07.435 +08:00 [DBG] Prepared SQL: SELECT
+                t.TRIGGER_NAME, t.TRIGGER_GROUP, jd.JOB_CLASS_NAME
+              FROM
+                QRTZ_TRIGGERS t
+              JOIN
+                QRTZ_JOB_DETAILS jd ON (jd.SCHED_NAME = t.SCHED_NAME AND  jd.JOB_GROUP = t.JOB_GROUP AND jd.JOB_NAME = t.JOB_NAME) 
+              WHERE
+                t.SCHED_NAME = @schedulerName AND TRIGGER_STATE = @state AND NEXT_FIRE_TIME <= @noLaterThan AND (MISFIRE_INSTR = -1 OR (MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME >= @noEarlierThan))
+              ORDER BY 
+                NEXT_FIRE_TIME ASC, PRIORITY DESC LIMIT 1
+2022-03-10 17:30:07.561 +08:00 [DBG] Lock 'TRIGGER_ACCESS' returned by: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:30:07.561 +08:00 [DBG] Batch acquisition of 0 triggers
+2022-03-10 17:30:32.592 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is desired by: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:30:32.592 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_LOCKS SET LOCK_NAME = LOCK_NAME WHERE SCHED_NAME = @schedulerName AND LOCK_NAME = @lockName
+2022-03-10 17:30:32.592 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is being obtained: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:30:32.596 +08:00 [DBG] Lock 'TRIGGER_ACCESS' given to: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:30:32.596 +08:00 [DBG] Prepared SQL: SELECT
+                t.TRIGGER_NAME, t.TRIGGER_GROUP, jd.JOB_CLASS_NAME
+              FROM
+                QRTZ_TRIGGERS t
+              JOIN
+                QRTZ_JOB_DETAILS jd ON (jd.SCHED_NAME = t.SCHED_NAME AND  jd.JOB_GROUP = t.JOB_GROUP AND jd.JOB_NAME = t.JOB_NAME) 
+              WHERE
+                t.SCHED_NAME = @schedulerName AND TRIGGER_STATE = @state AND NEXT_FIRE_TIME <= @noLaterThan AND (MISFIRE_INSTR = -1 OR (MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME >= @noEarlierThan))
+              ORDER BY 
+                NEXT_FIRE_TIME ASC, PRIORITY DESC LIMIT 1
+2022-03-10 17:30:32.736 +08:00 [DBG] Lock 'TRIGGER_ACCESS' returned by: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:30:32.736 +08:00 [DBG] Batch acquisition of 0 triggers
+2022-03-10 17:30:43.432 +08:00 [DBG] Scanning for misfires...
+2022-03-10 17:30:43.432 +08:00 [DBG] Prepared SQL: SELECT COUNT(TRIGGER_NAME) FROM QRTZ_TRIGGERS WHERE SCHED_NAME = @schedulerName AND MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME < @nextFireTime AND TRIGGER_STATE = @state1
+2022-03-10 17:30:43.432 +08:00 [DBG] Found 0 triggers that missed their scheduled fire-time.
+2022-03-10 17:30:56.031 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is desired by: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:30:56.031 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_LOCKS SET LOCK_NAME = LOCK_NAME WHERE SCHED_NAME = @schedulerName AND LOCK_NAME = @lockName
+2022-03-10 17:30:56.031 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is being obtained: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:30:56.032 +08:00 [DBG] Lock 'TRIGGER_ACCESS' given to: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:30:56.033 +08:00 [DBG] Prepared SQL: SELECT
+                t.TRIGGER_NAME, t.TRIGGER_GROUP, jd.JOB_CLASS_NAME
+              FROM
+                QRTZ_TRIGGERS t
+              JOIN
+                QRTZ_JOB_DETAILS jd ON (jd.SCHED_NAME = t.SCHED_NAME AND  jd.JOB_GROUP = t.JOB_GROUP AND jd.JOB_NAME = t.JOB_NAME) 
+              WHERE
+                t.SCHED_NAME = @schedulerName AND TRIGGER_STATE = @state AND NEXT_FIRE_TIME <= @noLaterThan AND (MISFIRE_INSTR = -1 OR (MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME >= @noEarlierThan))
+              ORDER BY 
+                NEXT_FIRE_TIME ASC, PRIORITY DESC LIMIT 1
+2022-03-10 17:30:56.085 +08:00 [DBG] Lock 'TRIGGER_ACCESS' returned by: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:30:56.085 +08:00 [DBG] Batch acquisition of 0 triggers
+2022-03-10 17:31:20.615 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is desired by: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:31:20.615 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_LOCKS SET LOCK_NAME = LOCK_NAME WHERE SCHED_NAME = @schedulerName AND LOCK_NAME = @lockName
+2022-03-10 17:31:20.615 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is being obtained: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:31:20.617 +08:00 [DBG] Lock 'TRIGGER_ACCESS' given to: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:31:20.617 +08:00 [DBG] Prepared SQL: SELECT
+                t.TRIGGER_NAME, t.TRIGGER_GROUP, jd.JOB_CLASS_NAME
+              FROM
+                QRTZ_TRIGGERS t
+              JOIN
+                QRTZ_JOB_DETAILS jd ON (jd.SCHED_NAME = t.SCHED_NAME AND  jd.JOB_GROUP = t.JOB_GROUP AND jd.JOB_NAME = t.JOB_NAME) 
+              WHERE
+                t.SCHED_NAME = @schedulerName AND TRIGGER_STATE = @state AND NEXT_FIRE_TIME <= @noLaterThan AND (MISFIRE_INSTR = -1 OR (MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME >= @noEarlierThan))
+              ORDER BY 
+                NEXT_FIRE_TIME ASC, PRIORITY DESC LIMIT 1
+2022-03-10 17:31:20.672 +08:00 [DBG] Lock 'TRIGGER_ACCESS' returned by: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:31:20.672 +08:00 [DBG] Batch acquisition of 0 triggers
+2022-03-10 17:31:43.452 +08:00 [DBG] Scanning for misfires...
+2022-03-10 17:31:43.453 +08:00 [DBG] Prepared SQL: SELECT COUNT(TRIGGER_NAME) FROM QRTZ_TRIGGERS WHERE SCHED_NAME = @schedulerName AND MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME < @nextFireTime AND TRIGGER_STATE = @state1
+2022-03-10 17:31:43.453 +08:00 [DBG] Found 0 triggers that missed their scheduled fire-time.
+2022-03-10 17:31:45.107 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is desired by: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:31:45.107 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_LOCKS SET LOCK_NAME = LOCK_NAME WHERE SCHED_NAME = @schedulerName AND LOCK_NAME = @lockName
+2022-03-10 17:31:45.107 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is being obtained: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:31:45.109 +08:00 [DBG] Lock 'TRIGGER_ACCESS' given to: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:31:45.109 +08:00 [DBG] Prepared SQL: SELECT
+                t.TRIGGER_NAME, t.TRIGGER_GROUP, jd.JOB_CLASS_NAME
+              FROM
+                QRTZ_TRIGGERS t
+              JOIN
+                QRTZ_JOB_DETAILS jd ON (jd.SCHED_NAME = t.SCHED_NAME AND  jd.JOB_GROUP = t.JOB_GROUP AND jd.JOB_NAME = t.JOB_NAME) 
+              WHERE
+                t.SCHED_NAME = @schedulerName AND TRIGGER_STATE = @state AND NEXT_FIRE_TIME <= @noLaterThan AND (MISFIRE_INSTR = -1 OR (MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME >= @noEarlierThan))
+              ORDER BY 
+                NEXT_FIRE_TIME ASC, PRIORITY DESC LIMIT 1
+2022-03-10 17:31:45.164 +08:00 [DBG] Lock 'TRIGGER_ACCESS' returned by: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:31:45.164 +08:00 [DBG] Batch acquisition of 0 triggers
+2022-03-10 17:32:08.628 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is desired by: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:32:08.628 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_LOCKS SET LOCK_NAME = LOCK_NAME WHERE SCHED_NAME = @schedulerName AND LOCK_NAME = @lockName
+2022-03-10 17:32:08.628 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is being obtained: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:32:08.821 +08:00 [DBG] Lock 'TRIGGER_ACCESS' given to: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:32:08.821 +08:00 [DBG] Prepared SQL: SELECT
+                t.TRIGGER_NAME, t.TRIGGER_GROUP, jd.JOB_CLASS_NAME
+              FROM
+                QRTZ_TRIGGERS t
+              JOIN
+                QRTZ_JOB_DETAILS jd ON (jd.SCHED_NAME = t.SCHED_NAME AND  jd.JOB_GROUP = t.JOB_GROUP AND jd.JOB_NAME = t.JOB_NAME) 
+              WHERE
+                t.SCHED_NAME = @schedulerName AND TRIGGER_STATE = @state AND NEXT_FIRE_TIME <= @noLaterThan AND (MISFIRE_INSTR = -1 OR (MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME >= @noEarlierThan))
+              ORDER BY 
+                NEXT_FIRE_TIME ASC, PRIORITY DESC LIMIT 1
+2022-03-10 17:32:08.887 +08:00 [DBG] Lock 'TRIGGER_ACCESS' returned by: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:32:08.887 +08:00 [DBG] Batch acquisition of 0 triggers
+2022-03-10 17:32:36.190 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is desired by: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:32:36.190 +08:00 [DBG] Prepared SQL: UPDATE QRTZ_LOCKS SET LOCK_NAME = LOCK_NAME WHERE SCHED_NAME = @schedulerName AND LOCK_NAME = @lockName
+2022-03-10 17:32:36.190 +08:00 [DBG] Lock 'TRIGGER_ACCESS' is being obtained: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:32:36.192 +08:00 [DBG] Lock 'TRIGGER_ACCESS' given to: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:32:36.192 +08:00 [DBG] Prepared SQL: SELECT
+                t.TRIGGER_NAME, t.TRIGGER_GROUP, jd.JOB_CLASS_NAME
+              FROM
+                QRTZ_TRIGGERS t
+              JOIN
+                QRTZ_JOB_DETAILS jd ON (jd.SCHED_NAME = t.SCHED_NAME AND  jd.JOB_GROUP = t.JOB_GROUP AND jd.JOB_NAME = t.JOB_NAME) 
+              WHERE
+                t.SCHED_NAME = @schedulerName AND TRIGGER_STATE = @state AND NEXT_FIRE_TIME <= @noLaterThan AND (MISFIRE_INSTR = -1 OR (MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME >= @noEarlierThan))
+              ORDER BY 
+                NEXT_FIRE_TIME ASC, PRIORITY DESC LIMIT 1
+2022-03-10 17:32:36.279 +08:00 [DBG] Lock 'TRIGGER_ACCESS' returned by: "61250d47-a8aa-47c2-8ccf-6aded4ba6458"
+2022-03-10 17:32:36.279 +08:00 [DBG] Batch acquisition of 0 triggers
+2022-03-10 17:32:43.459 +08:00 [DBG] Scanning for misfires...
+2022-03-10 17:32:43.459 +08:00 [DBG] Prepared SQL: SELECT COUNT(TRIGGER_NAME) FROM QRTZ_TRIGGERS WHERE SCHED_NAME = @schedulerName AND MISFIRE_INSTR <> -1 AND NEXT_FIRE_TIME < @nextFireTime AND TRIGGER_STATE = @state1
+2022-03-10 17:32:43.460 +08:00 [DBG] Found 0 triggers that missed their scheduled fire-time.

@@ -7,6 +7,7 @@ namespace SchedulerCore.Host.Helpers
 {
     public class BasicResult
     {
+        public int Code { get; set; } = 200;
         public string msg { get; set; }
     }
 }

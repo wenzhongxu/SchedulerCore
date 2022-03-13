@@ -12,6 +12,7 @@ using SchedulerCore.Host.Managers;
 using SchedulerCore.Host.Services;
 using Serilog;
 using Serilog.Events;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -52,15 +53,18 @@ namespace SchedulerCore.Host
             #endregion
 
             services.AddControllersWithViews(option =>
-           {
+            {
                option.Filters.Add<AuthorizationFilter>();
-           }).AddNewtonsoftJson();
+            }).AddNewtonsoftJson();
 
             services.AddHostedService<HostedService>(); // 注册到hosted
             //services.AddSingleton<SchedulerManager>(); // 单例模式
             services.AddSingleton<SchedulerCenter>();
 
             services.AddControllers().AddXmlDataContractSerializerFormatters();
+
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "SchedulerCore.Host", Version = "v1" });
@@ -117,7 +121,7 @@ namespace SchedulerCore.Host
                                  .WriteTo.Logger(lg => lg.Filter.ByIncludingOnly(p => p.Level == LogEventLevel.Debug).WriteTo.Async(
                                      a =>
                                      {
-                                         a.File("Logs/log-{Date}-debug.txt", restrictedToMinimumLevel: LogEventLevel.Debug, outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj}{NewLine}{Exception}");
+                                         a.File("Logs", restrictedToMinimumLevel: LogEventLevel.Debug);
                                      }
                                  ))
                                  .WriteTo.Logger(lg => lg.Filter.ByIncludingOnly(p => p.Level == LogEventLevel.Information).WriteTo.Async(

@@ -41,30 +41,18 @@ namespace SchedulerCore.Host.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddJob(string scheduleData)
+        public async Task<IActionResult> AddJob(ScheduleAddDto scheduleAddDto)
         {
-            ScheduleAddDto schedule = new ScheduleAddDto();
-            string scheduleDataStr = "";
-            if (Request.Form.ContainsKey("scheduleData"))
-            {
-                scheduleDataStr = Request.Form["scheduleData"];
-            }
-            if (Request.Query.ContainsKey("scheduleData"))
-            {
-                scheduleDataStr = Request.Query["scheduleData"];
-            }
-            schedule = JsonHelper.Deserialize<ScheduleAddDto>(scheduleDataStr);
+            var jobKey = new JobKey(scheduleAddDto.JobName, scheduleAddDto.JobGroup);
 
-            var jobKey = new JobKey(schedule.JobName, schedule.JobGroup);
-
-            if (schedule.TriggerType == TriggerTypeEnum.Simple &&
-                    schedule.IntervalSecond.HasValue &&
-                    schedule.IntervalSecond <= 10)
+            if (scheduleAddDto.TriggerType == TriggerTypeEnum.Simple &&
+                    scheduleAddDto.IntervalSecond.HasValue &&
+                    scheduleAddDto.IntervalSecond <= 10)
             {
                 return BadRequest("当前环境不允许低于10秒内循环执行任务！");
             }
-            else if (schedule.TriggerType == TriggerTypeEnum.Cron &&
-                     schedule.Cron == "* * * * * ?")
+            else if (scheduleAddDto.TriggerType == TriggerTypeEnum.Cron &&
+                     scheduleAddDto.Cron == "* * * * * ?")
             {
                 return BadRequest("当前环境不允许过频繁执行任务！");
             }
@@ -74,7 +62,7 @@ namespace SchedulerCore.Host.Controllers
             //    return BadRequest("任务已存在！");
             //}
 
-            await _schedulerCenter.AddScheduleJobAsync(schedule);
+            await _schedulerCenter.AddScheduleJobAsync(scheduleAddDto);
             return Ok();
         }
     }

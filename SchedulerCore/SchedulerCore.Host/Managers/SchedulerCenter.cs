@@ -58,22 +58,22 @@ namespace SchedulerCore.Host.Managers
         {
             if (scheduler == null)
             {
-                DBConnectionManager.Instance.AddConnectionProvider("XCRMS", dbProvider);
+                DBConnectionManager.Instance.AddConnectionProvider("Auction", dbProvider);
 
                 var serializer = new JsonObjectSerializer();
                 serializer.Initialize();
 
                 var jobStore = new JobStoreTX
                 {
-                    DataSource = "XCRMS",
+                    DataSource = "Auction",
                     TablePrefix = "QRTZ_",
                     InstanceId = "AUTO",
                     DriverDelegateType = delegateType,
                     ObjectSerializer = serializer
                 };
 
-                DirectSchedulerFactory.Instance.CreateScheduler("XCRMSScheduler", "AUTO", new DefaultThreadPool(), jobStore);
-                scheduler = await SchedulerRepository.Instance.Lookup("XCRMSScheduler");
+                DirectSchedulerFactory.Instance.CreateScheduler("AuctionScheduler", "AUTO", new DefaultThreadPool(), jobStore);
+                scheduler = await SchedulerRepository.Instance.Lookup("AuctionScheduler");
             }
         }
 
@@ -83,6 +83,7 @@ namespace SchedulerCore.Host.Managers
         /// <returns></returns>
         public async Task<bool> StartScheduleAsync()
         {
+            await InitDbTablesAsync();
             await InitSchedulerAsync();
 
             if (scheduler.InStandbyMode)
@@ -91,6 +92,13 @@ namespace SchedulerCore.Host.Managers
                 Console.WriteLine("任务调度已启动");
             }
             return scheduler.InStandbyMode;
+        }
+
+        private async Task InitDbTablesAsync()
+        {
+            IRepository repository = RepositoryFactory.CreateRepository(delegateType, dbProvider);
+            await repository?.InitTable();
+
         }
 
         #region for webapi

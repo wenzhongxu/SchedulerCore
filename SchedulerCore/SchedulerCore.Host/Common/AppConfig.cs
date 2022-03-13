@@ -22,6 +22,7 @@ namespace SchedulerCore.Host.Common
         private static string Pwd => ConfigurationManager.GetTryConfig("Quartz:Oracle:Pwd");
 
         //要处理密码加密。。。
-        public static string ConnectionString = $"Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST={Host})(PORT={Port})))(CONNECT_DATA=(SERVICE_NAME={ServiceName})));User Id={User};Password={Pwd};";
+        //public static string ConnectionString = $"Data Source=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST={Host})(PORT={Port})))(CONNECT_DATA=(SERVICE_NAME={ServiceName})));User Id={User};Password={Pwd};";
+        public static string ConnectionString => ConfigurationManager.GetTryConfig("Quartz:connectionString");
     }
 }

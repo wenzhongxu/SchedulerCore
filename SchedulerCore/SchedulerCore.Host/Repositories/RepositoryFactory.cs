@@ -1,4 +1,5 @@
-﻿using Quartz.Impl.AdoJobStore.Common;
+﻿using Quartz.Impl.AdoJobStore;
+using Quartz.Impl.AdoJobStore.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,12 +11,18 @@ namespace SchedulerCore.Host.Repositories
     {
         public static IRepository CreateRepository(string dbType, IDbProvider dbProvider)
         {
-            return dbType switch
+            if (dbType == typeof(SQLiteDelegate).AssemblyQualifiedName)
             {
-                "Oracle" => new RepositoryOracle(dbProvider),
-                "MySql" => new RepositoryMySql(dbProvider),
-                _ => null,
-            };
+                return new RepositorySQLite(dbProvider);
+            }
+            else if (dbType == typeof(OracleDelegate).AssemblyQualifiedName)
+            {
+                return new RepositoryOracle(dbProvider);
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }
