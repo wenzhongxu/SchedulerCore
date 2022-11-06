@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32407.343
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchedulerCore.Host", "SchedulerCore\SchedulerCore.Host.csproj", "{9C0923CF-A869-4F1E-AA59-F941DDC0A884}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchedulerCore.Host", "SchedulerCore\SchedulerCore.Host.csproj", "{9C0923CF-A869-4F1E-AA59-F941DDC0A884}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scheduler.Repositories", "Scheduler.Repositories\Scheduler.Repositories.csproj", "{9811F12B-8BB4-4A9F-B19F-4ECABB9CAF49}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scheduler.Repositories", "Scheduler.Repositories\Scheduler.Repositories.csproj", "{9811F12B-8BB4-4A9F-B19F-4ECABB9CAF49}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scheduler.Common", "Scheduler.Common\Scheduler.Common.csproj", "{41829D65-A2F6-43F8-B387-3C8613868ED1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{9811F12B-8BB4-4A9F-B19F-4ECABB9CAF49}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9811F12B-8BB4-4A9F-B19F-4ECABB9CAF49}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9811F12B-8BB4-4A9F-B19F-4ECABB9CAF49}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41829D65-A2F6-43F8-B387-3C8613868ED1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41829D65-A2F6-43F8-B387-3C8613868ED1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41829D65-A2F6-43F8-B387-3C8613868ED1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41829D65-A2F6-43F8-B387-3C8613868ED1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
