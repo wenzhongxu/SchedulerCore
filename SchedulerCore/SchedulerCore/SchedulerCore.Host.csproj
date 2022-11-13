@@ -18,10 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <ProjectReference Include="..\Scheduler.Common\Scheduler.Common.csproj" />
     <ProjectReference Include="..\Scheduler.Repositories\Scheduler.Repositories.csproj" />
   </ItemGroup>
 
