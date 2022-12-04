@@ -12,6 +12,7 @@ using SchedulerCore.Host.Common.Enums;
 using SchedulerCore.Host.Entities;
 using SchedulerCore.Host.IJobs;
 using SchedulerCore.Host.Models;
+using Serilog;
 
 namespace SchedulerCore.Host.Managers
 {
@@ -79,6 +80,21 @@ namespace SchedulerCore.Host.Managers
                 Console.WriteLine("任务调度已启动");
             }
             return scheduler.InStandbyMode;
+        }
+
+        /// <summary>
+        /// 停止任务调度
+        /// </summary>
+        public async Task<bool> StopSchedulerAsync()
+        {
+            //判断调度是否已经关闭
+            if (!scheduler.InStandbyMode)
+            {
+                //等待任务运行完成
+                await scheduler.Standby(); //TODO  注意：Shutdown后Start会报错，所以这里使用暂停。
+                Log.Information("任务调度暂停！");
+            }
+            return !scheduler.InStandbyMode;
         }
 
         /// <summary>
@@ -393,6 +409,137 @@ namespace SchedulerCore.Host.Managers
                 }
             }
             return jobInfoList;
+        }
+
+        /// <summary>
+        /// 暂停/删除 指定的计划
+        /// </summary>
+        /// <param name="jobGroup">任务分组</param>
+        /// <param name="jobName">任务名称</param>
+        /// <param name="isDelete">停止并删除任务</param>
+        /// <returns></returns>
+        public async Task<BaseResultDto> StopOrDelScheduleJobAsync(string jobGroup, string jobName, bool isDelete = false)
+        {
+            BaseResultDto result;
+            try
+            {
+                await scheduler.PauseJob(new JobKey(jobName, jobGroup));
+                if (isDelete)
+                {
+                    await scheduler.DeleteJob(new JobKey(jobName, jobGroup));
+                    result = new BaseResultDto
+                    {
+                        Code = 200,
+                        Msg = "删除任务计划成功！"
+                    };
+                }
+                else
+                {
+                    result = new BaseResultDto
+                    {
+                        Code = 200,
+                        Msg = "停止任务计划成功！"
+                    };
+                }
+
+            }
+            catch (Exception ex)
+            {
+                result = new BaseResultDto
+                {
+                    Code = 505,
+                    Msg = "停止任务计划失败" + ex.Message
+                };
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// 恢复运行暂停的任务
+        /// </summary>
+        /// <param name="jobName">任务名称</param>
+        /// <param name="jobGroup">任务分组</param>
+        public async Task<BaseResultDto> ResumeJobAsync(string jobGroup, string jobName)
+        {
+            BaseResultDto result = new BaseResultDto();
+            try
+            {
+                //检查任务是否存在
+                var jobKey = new JobKey(jobName, jobGroup);
+                if (await scheduler.CheckExists(jobKey))
+                {
+                    var jobDetail = await scheduler.GetJobDetail(jobKey);
+                    var endTime = jobDetail.JobDataMap.GetString("EndAt");
+                    if (!string.IsNullOrWhiteSpace(endTime) && DateTime.Parse(endTime) <= DateTime.Now)
+                    {
+                        result.Code = 500;
+                        result.Msg = "Job的结束时间已过期。";
+                    }
+                    else
+                    {
+                        //任务已经存在则暂停任务
+                        await scheduler.ResumeJob(jobKey);
+                        result.Msg = "恢复任务计划成功！";
+                        Log.Information(string.Format("任务“{0}”恢复运行", jobName));
+                    }
+                }
+                else
+                {
+                    result.Code = 500;
+                    result.Msg = "任务不存在";
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Msg = "恢复任务计划失败！";
+                result.Code = 500;
+                Log.Error(string.Format("恢复任务失败！{0}", ex));
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// 获取运行次数
+        /// </summary>
+        /// <param name="jobKey"></param>
+        /// <returns></returns>
+        public async Task<long> GetRunNumberAsync(JobKey jobKey)
+        {
+            var jobDetail = await scheduler.GetJobDetail(jobKey);
+            return jobDetail.JobDataMap.GetLong(Constant.RUNNUMBER);
+        }
+
+        /// <summary>
+        /// 获取job日志
+        /// </summary>
+        /// <param name="jobKey"></param>
+        /// <returns></returns>
+        public async Task<List<string>> GetJobLogsAsync(JobKey jobKey)
+        {
+            var jobDetail = await scheduler.GetJobDetail(jobKey);
+            return jobDetail.JobDataMap[Constant.LOGLIST] as List<string>;
+        }
+
+        /// <summary>
+        /// 移除异常信息
+        /// 因为只能在IJob持久化操作JobDataMap，所有这里直接暴力操作数据库。
+        /// </summary>
+        /// <param name="jobGroup"></param>
+        /// <param name="jobName"></param>
+        /// <returns></returns>          
+        public async Task<bool> RemoveErrLog(string jobGroup, string jobName)
+        {
+            //IRepository logRepositorie = RepositoryFactory.CreateRepository(driv, dbProvider);
+
+            //if (logRepositorie == null) return false;
+
+            //await logRepositorie.RemoveErrLogAsync(jobGroup, jobName);
+
+            //var jobKey = new JobKey(jobName, jobGroup);
+            //var jobDetail = await scheduler.GetJobDetail(jobKey);
+            //jobDetail.JobDataMap[Constant.EXCEPTION] = string.Empty;
+
+            return true;
         }
     }
 }
